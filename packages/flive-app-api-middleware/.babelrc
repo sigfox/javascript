@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current",
+          "ie": "10"
+        }
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    "add-module-exports"
+  ]
+}

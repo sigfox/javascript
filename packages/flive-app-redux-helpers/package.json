@@ -1,0 +1,16 @@
+{
+  "name": "flive-app-redux-helpers",
+  "version": "0.1.5",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Error: run build:redux-helpers from the repo root\" && exit 1 "
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "author": "special-projects@sigfox.com",
+  "license": "MIT"
+}
