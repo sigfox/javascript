@@ -15,10 +15,10 @@ const boomHelper = (ctx, boomError) => {
         : boomError.data;
     ctx.body.validation = validation;
   }
-}
+};
 
 module.exports = () => (ctx, next) => {
-  ctx.boom = (boomError) => boomHelper(ctx, boomError);
+  ctx.boom = boomError => boomHelper(ctx, boomError);
   return next();
 };
 

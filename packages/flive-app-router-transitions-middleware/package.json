@@ -4,7 +4,6 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"Error: run build:router-transitions-middleware from the repo root\" && exit 1 "
   },
   "repository": {

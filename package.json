@@ -1,25 +1,25 @@
 {
-   "name": "flive-app-packages",
-   "private": true,
-   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+  "name": "@sigfox/flive-app",
+  "private": true,
+  "scripts": {
+    "lint": "lerna run lint",
+    "test": "lerna exec -- npm test",
+    "bootstrap": "lerna bootstrap",
     "build": "npm run build:api-client && npm run build:api-middleware && npm run build:api-redux-helpers && npm run build:router-transitions-middleware",
     "build:api-client": "npx babel ./packages/flive-app-api-client/src --out-dir ./packages/flive-app-api-client/lib",
     "build:api-middleware": "npx babel ./packages/flive-app-api-middleware/src --out-dir ./packages/flive-app-api-middleware/lib",
     "build:api-redux-helpers": "npx babel ./packages/flive-app-redux-helpers/src --out-dir ./packages/flive-app-redux-helpers/lib",
     "build:router-transitions-middleware": "npx babel ./packages/flive-app-router-transitions-middleware/src --out-dir ./packages/flive-app-router-transitions-middleware/lib"
-   },
-   "devDependencies": {
-      "babel-cli": "^6.26.0",
-      "babel-eslint": "^7.2.0",
-      "babel-plugin-add-module-exports": "^0.2.1",
-      "babel-preset-env": "^1.6.1",
-      "babel-preset-stage-0": "^6.24.1",
-      "eslint": "^3.18.0",
-      "eslint-config-airbnb": "^14.1.0",
-      "eslint-plugin-import": "^2.2.0",
-      "eslint-plugin-jsx-a11y": "^4.0.0",
-      "eslint-plugin-react": "^6.10.3",
-      "lerna": "^2.4.0"
-   }
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-sigfox": "^0.2.3",
+    "eslint-plugin-import": "^2.12.0",
+    "lerna": "^3.13.1"
+  }
 }

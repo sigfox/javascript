@@ -1,13 +1,41 @@
+# See https://git-scm.com/docs/gitignore for more about ignoring files.
+# IDE folders/files
+.idea/
+.vscode/
+*.iml
 
-node_modules
-ncp-debug.log
-npm-debug.log
-yarn-error.log
-lerna-debug.log
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-#IDE specifics
-.idea
-.vscode
-
-#MAC OS
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.tgz
+*.zip
+
+# Project folders/files
+build/
+coverage/
+dist/
+logs/
+node_modules/
+*.log*
+*-report.*
+.nyc_output

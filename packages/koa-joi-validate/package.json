@@ -1,12 +1,13 @@
 {
-  "name": "@sigfox/koa-boom",
+  "name": "@sigfox/koa-joi-validate",
   "version": "1.0.0",
   "private": false,
-  "description": "Koa middleware adding a custom boom method to the context.",
+  "description": "Joi validation middleware for Koa.",
   "keywords": [
-    "boom",
+    "joi",
     "koa",
-    "middleware"
+    "middleware",
+    "validation"
   ],
   "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
   "bugs": {
@@ -14,28 +15,35 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+    "url": "git+https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
   },
   "license": "MIT",
   "author": "Sigfox developers",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "lint": "eslint --ext .js",
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
-    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec test/**/*test.js"
   },
   "devDependencies": {
+    "@sigfox/koa-boom": "^1.0.0",
+    "@types/boom": "^7.2.1",
+    "@types/joi": "^10.6.5",
     "@types/koa": "^2.0.48",
     "boom": "^7.3.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "joi": "^10.6.0",
     "koa": "^2.7.0",
-    "koa-router": "^7.4.0",
+    "koa-bodyparser": "^4.2.1",
     "mocha": "^6.0.2",
     "nyc": "^13.3.0"
   },
   "peerDependencies": {
-    "boom": "^7.3.0"
+    "@sigfox/koa-boom": "^1.0.0",
+    "boom": "^7.3.0",
+    "joi": "^10.6.0"
   },
   "publishConfig": {
     "access": "public"
@@ -48,8 +56,7 @@
       "**/*.js"
     ],
     "exclude": [
-      "**/*.spec.js",
-      "**/*.test.js"
+      "test/**/*"
     ],
     "reporter": [
       "html",

@@ -1,4 +1,6 @@
-# koa-boom - Koa middleware adding a custom boom method to the context
+# koa-boom
+
+Koa middleware adding a custom boom method to the context.
 
 ## When use it?
 
@@ -7,8 +9,8 @@ You can use this module if you need to use the Sigfox way of formatting errors u
 ## Features
 
 - Mount a custom boom method to the context. ctx.status & ctx.body are filled by the Boom error content
-- A status 400 is considered as a validation error by koa-boom and add the formatted error to ctx.body.validation.
-- Exports a boom helper that can be used by providing it the context. That can be a great alternative to using the middleware.
+- A status 400 is considered as a validation error by koa-boom and add the formatted error to ctx.body.validation
+- Exports a boom helper that can be used by providing it the context. That can be a great alternative to using the middleware
 
 ## Install
 
@@ -16,12 +18,13 @@ You can use this module if you need to use the Sigfox way of formatting errors u
 npm install @sigfox/koa-boom
 ```
 
-## Usage as a middleware
+## Usage
 
-As a middleware
+As a middleware:
+
 ```javascript
-var Koa = require('koa');
-var koaBoom = require('koa-boom');
+const Koa = require('koa');
+const koaBoom = require('koa-boom');
 
 const app = new Koa()
   .use(koaBoom())
@@ -31,16 +34,16 @@ const app = new Koa()
   .listen();
 ```
 
+As a helper:
 
-As a helper
 ```javascript
-var Koa = require('koa');
+const Koa = require('koa');
 const boom = require('boom');
-var { boomHelper } = require('koa-boom');
+const { boomHelper } = require('koa-boom');
 
 const app = new Koa()
   .use(async ctx => {
-    return boomHelper(ctx, boom.badRequest('invalid query'))
+    return boomHelper(ctx, boom.badRequest('invalid query'));
   })
   .listen();
 ```
