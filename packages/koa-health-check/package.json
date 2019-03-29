@@ -1,0 +1,59 @@
+{
+  "name": "@sigfox/koa-health-check",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Koa middleware mounting the GET /health route returning the app status depending on ctx.isShutdown existence.",
+  "keywords": [
+    "check",
+    "health",
+    "koa",
+    "middleware"
+  ],
+  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "bugs": {
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
+  },
+  "peerDependencies": {
+    "koa-router": "^7.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
+  }
+}
