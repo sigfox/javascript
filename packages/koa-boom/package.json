@@ -1,0 +1,54 @@
+{
+  "name": "@sigfox/koa-health-check",
+  "version": "1.0.0",
+  "description": "Koa middleware adding a custom boom method to the context.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "koa",
+    "health",
+    "check"
+  ],
+  "dependencies": {
+    "koa-router": "~7.4.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "boom": "~7.2.2",
+    "chai": "^4.2.0",
+    "chai-http": "~4.2.1",
+    "koa": "^2.7.0",
+    "koa-router": "~7.4.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
+  },
+  "peerDependencies": {
+    "boom": "~7.2.2"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
+  }
+}
