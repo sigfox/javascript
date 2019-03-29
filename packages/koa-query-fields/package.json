@@ -1,13 +1,13 @@
 {
-  "name": "@sigfox/koa-error-handler",
+  "name": "@sigfox/koa-query-fields",
   "version": "1.0.0",
   "private": false,
-  "description": "Koa middleware handling errors.",
+  "description": "Koa middleware selecting fields from ctx.body depending on ctx.query.fields.",
   "keywords": [
-    "error",
-    "handler",
+    "fields",
     "koa",
-    "middleware"
+    "middleware",
+    "query"
   ],
   "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
   "bugs": {
@@ -30,8 +30,12 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "koa": "^2.7.0",
+    "lodash": "^4.17.11",
     "mocha": "^6.0.2",
     "nyc": "^13.3.0"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.11"
   },
   "publishConfig": {
     "access": "public"
