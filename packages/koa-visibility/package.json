@@ -1,12 +1,14 @@
 {
-  "name": "@sigfox/koa-acl",
+  "name": "@sigfox/koa-visibility",
   "version": "1.0.0",
   "private": false,
-  "description": "Koa middleware for ACL handling.",
+  "description": "Koa middleware hiding fields from ctx.body depending on user roles.",
   "keywords": [
-    "acl",
+    "fields",
+    "hiding",
     "koa",
-    "middleware"
+    "middleware",
+    "visibility"
   ],
   "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
   "bugs": {
@@ -25,9 +27,7 @@
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
   },
   "devDependencies": {
-    "@sigfox/koa-boom": "^1.0.0",
     "@types/koa": "^2.0.48",
-    "boom": "^7.3.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "koa": "^2.7.0",
@@ -36,8 +36,6 @@
     "nyc": "^13.3.0"
   },
   "peerDependencies": {
-    "@sigfox/koa-boom": "^1.0.0",
-    "boom": "^7.3.0",
     "lodash": "^4.17.11"
   },
   "publishConfig": {
