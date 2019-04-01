@@ -34,8 +34,10 @@ Thumbs.db
 build/
 coverage/
 dist/
+lib/
 logs/
 node_modules/
 *.log*
 *-report.*
 .nyc_output
+*-lock.json

@@ -1,0 +1,40 @@
+{
+  "name": "@sigfox/redux-router-transitions-middleware",
+  "version": "0.1.5",
+  "private": false,
+  "description": "Redux router transitions middleware.",
+  "keywords": [
+    "middleware",
+    "redux",
+    "router-transitions"
+  ],
+  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "bugs": {
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
+  "scripts": {
+    "build": "rollup --config",
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json"
+  },
+  "devDependencies": {
+    "@sigfox/redux-router": "^2.1.4"
+  },
+  "peerDependencies": {
+    "@sigfox/redux-router": "^2.1.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

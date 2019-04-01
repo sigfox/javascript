@@ -1,11 +1,10 @@
-# flive-app-redux-helpers
+# redux-helpers
 
-/!\ WIP /!\
- 
 ## reduxApiFactory
 
 ### TL;DR
-```
+
+```javascript
 import { reduxApiFactory } from 'filve-app-redux-helpers';
 import { combineReducers } from 'redux';
 

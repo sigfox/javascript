@@ -1,0 +1,34 @@
+{
+  "name": "@sigfox/redux-api-middleware",
+  "version": "0.1.8",
+  "private": false,
+  "description": "Redux API middleware.",
+  "keywords": [
+    "api",
+    "middleware",
+    "redux"
+  ],
+  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "bugs": {
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
+  "scripts": {
+    "build": "rollup --config",
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

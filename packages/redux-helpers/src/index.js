@@ -1,10 +1,10 @@
-export const getSuccessType = type => `${type}_SUCCESS`;
-export const getFailureType = type => `${type}_FAILURE`;
+const getFailureType = type => `${type}_FAILURE`;
+const getSuccessType = type => `${type}_SUCCESS`;
 
-export const mergeReducers = (...reducers) => (data, action) =>
+const mergeReducers = (...reducers) => (data, action) =>
   reducers.reduce((prevData, currentReducer) => currentReducer(prevData, action), data);
 
-export const reduxApiFactory = ({
+const reduxApiFactory = ({
   type,
   request,
   transform = data => data,
@@ -17,7 +17,9 @@ export const reduxApiFactory = ({
 }) => {
   if (!type) throw new Error('Action type must be defined');
   if (!request || typeof request !== 'function') {
-    throw new Error('Action request must be a function (client [, params]) => client.method(endpoint)');
+    throw new Error(
+      'Action request must be a function (client [, params]) => client.method(endpoint)'
+    );
   }
 
   const types = [type, getSuccessType(type), getFailureType(type)];
@@ -75,8 +77,7 @@ export const reduxApiFactory = ({
   };
 };
 
-export default {
-  getFailureType,
-  getSuccessType,
-  reduxApiFactory
-};
+const helper = { getFailureType, getSuccessType, reduxApiFactory };
+
+export { getFailureType, getSuccessType, mergeReducers, reduxApiFactory };
+export default helper;
