@@ -20,7 +20,6 @@ export default function apiClientMiddleware(client) {
         return response;
       })
       .catch((err) => {
-        if (__DEVELOPMENT__) console.error(err);
         dispatch({
           ...rest,
           type: FAILURE,
