@@ -1,27 +1,15 @@
-# redux-router-transitions-middleware
-
-Redux middleware for [@sigfox/redux-router](https://github.com/sigfox/redux-router) handling API calls during routes transitions
-
-## Features
-
-When the route changes ([@sigfox/redux-router](https://github.com/sigfox/redux-router)), the middleware checks if the React component associated to the new route has static method "fetchDataDeferred" and calls it.
-
-## Install
-
-```bash
-npm install @sigfox/redux-router-transitions-middleware
-```
-
-## Usage
-
-```javascript
+import chai from 'chai';
+import { describe, it } from 'mocha';
 import React from 'react';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import createHistory from 'history/lib/createMemoryHistory';
 
 import { Route } from '@sigfox/react-router';
 import { reduxReactRouter, routerStateReducer, push } from '@sigfox/redux-router';
-import transitionsMiddleware from '@sigfox/redux-router-transitions-middleware';
+
+import transitionsMiddleware from '../src';
+
+global.__SERVER__ = false;
 
 const INIT_COMPONENT = 'INIT_COMPONENT';
 
@@ -35,9 +23,20 @@ class FirstComponent extends React.Component {
   render = () => <div>First component</div>;
 }
 
+class SecondComponent extends React.Component {
+  static fetchDataDeferred = ({ dispatch }) =>
+    dispatch({
+      type: INIT_COMPONENT,
+      data: 2
+    });
+
+  render = () => <div>Second component</div>;
+}
+
 const routes = (
   <Route path="/">
     <Route path="first" component={FirstComponent} />
+    <Route path="second" component={SecondComponent} />
   </Route>
 );
 
@@ -63,17 +62,16 @@ const store = compose(
   applyMiddleware(transitionsMiddleware)
 )(createStore)(reducer);
 
-// This will trigger a rerouting to /first, since the component has the method "fetchDataDeferred", the
-// action 'INIT_COMPONENT' will be dispatched and the value of data in the component reducer will change.
-store.dispatch(push({ pathname: '/first' }));
-```
+describe('transitionsMiddleware', () => {
+  it('route to /first', async () => {
+    await store.dispatch(push({ pathname: '/first' }));
+    chai.expect(store.getState().router.location.pathname).to.equal('/first');
+    chai.expect(store.getState().component.data).to.equal(1);
+  });
 
-## Test
-
-```bash
-npm test
-```
-
-## Licence
-
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+  it('route to /second', async () => {
+    await store.dispatch(push({ pathname: '/second' }));
+    chai.expect(store.getState().router.location.pathname).to.equal('/second');
+    chai.expect(store.getState().component.data).to.equal(2);
+  });
+});

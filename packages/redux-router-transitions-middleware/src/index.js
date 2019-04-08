@@ -8,6 +8,7 @@ const getDataDependency = (component = {}, methodName) =>
   (component.WrappedComponent ?
     getDataDependency(component.WrappedComponent, methodName)
     : component[methodName]);
+
 const getDataDependencies = (components, getState, dispatch, location, params, deferred) => {
   const methodName = deferred ? 'fetchDataDeferred' : 'fetchData';
 

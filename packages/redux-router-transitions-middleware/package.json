@@ -26,13 +26,28 @@
   "scripts": {
     "build": "rollup --config",
     "lint": "eslint --ext .js",
-    "lint:report": "npm run lint -- --format json --output-file eslint-report.json"
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "BABEL_ENV=test nyc mocha --require @babel/register --check-leaks --reporter spec test/**/*test.js"
+  },
+  "dependencies": {
+    "@sigfox/redux-router": "^2.1.4"
   },
   "devDependencies": {
-    "@sigfox/redux-router": "^2.1.4"
-  },
-  "peerDependencies": {
-    "@sigfox/redux-router": "^2.1.4"
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.0",
+    "@sigfox/react-router": "^2.8.6",
+    "axios": "^0.18.0",
+    "chai": "^4.2.0",
+    "history": "^2.1.2",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "react": "^16.8.6",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
