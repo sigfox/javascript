@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/redux-helpers",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "private": false,
   "description": "Redux helpers.",
   "keywords": [
@@ -26,9 +26,40 @@
   "scripts": {
     "build": "rollup --config",
     "lint": "eslint --ext .js",
-    "lint:report": "npm run lint -- --format json --output-file eslint-report.json"
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "BABEL_ENV=test nyc mocha --require @babel/register --check-leaks --reporter spec test/**/*test.js"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "@babel/runtime": "^7.4.3",
+    "@sigfox/redux-api-middleware": "^1.0.0",
+    "axios": "^0.18.0",
+    "chai": "^4.2.0",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "redux": "^3.6.0"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
   }
 }

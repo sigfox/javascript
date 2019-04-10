@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/universal-api-client",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "private": false,
   "description": "Universal API client.",
   "keywords": [

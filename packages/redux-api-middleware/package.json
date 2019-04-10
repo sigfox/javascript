@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/redux-api-middleware",
-  "version": "0.1.8",
+  "version": "1.0.0",
   "private": false,
   "description": "Redux API middleware.",
   "keywords": [
@@ -44,5 +44,21 @@
     "mocha": "^6.0.2",
     "nyc": "^13.3.0",
     "redux": "^3.6.0"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
   }
 }

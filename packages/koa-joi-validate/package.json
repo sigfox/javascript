@@ -26,6 +26,10 @@
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec test/**/*test.js"
   },
+  "dependencies": {
+    "@sigfox/koa-boom": "^1.0.0",
+    "boom": "^7.3.0"
+  },
   "devDependencies": {
     "@sigfox/koa-boom": "^1.0.0",
     "@types/boom": "^7.2.1",
@@ -41,8 +45,6 @@
     "nyc": "^13.3.0"
   },
   "peerDependencies": {
-    "@sigfox/koa-boom": "^1.0.0",
-    "boom": "^7.3.0",
     "joi": "^10.6.0"
   },
   "publishConfig": {
