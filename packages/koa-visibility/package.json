@@ -26,17 +26,19 @@
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
   },
+  "dependencies": {
+    "lodash.omit": "^4.5.0",
+    "lodash.pick": "^4.4.0",
+    "lodash.uniq": "^4.5.0"
+  },
   "devDependencies": {
     "@types/koa": "^2.0.48",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "koa": "^2.7.0",
-    "lodash": "^4.17.11",
+    "koa-router": "^7.4.0",
     "mocha": "^6.0.2",
     "nyc": "^13.3.0"
-  },
-  "peerDependencies": {
-    "lodash": "^4.17.11"
   },
   "publishConfig": {
     "access": "public"

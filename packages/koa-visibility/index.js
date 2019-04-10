@@ -1,6 +1,6 @@
-const omit = require('lodash/omit');
-const pick = require('lodash/pick');
-const uniq = require('lodash/uniq');
+const omit = require('lodash.omit');
+const pick = require('lodash.pick');
+const uniq = require('lodash.uniq');
 
 const getVisibleFields = (config, roles) =>
   uniq(roles.reduce((acc, role) => (config[role] ? [...acc, ...config[role]] : acc), []));

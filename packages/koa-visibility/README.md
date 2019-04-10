@@ -48,13 +48,13 @@ const getRoutes = () => {
   const router = new Router();
 
   // No visibility here since data is already public
-  router.get('users', addUser, visibilityMiddleware, async ctx => {
+  router.get('/users', addUser, visibilityMiddleware, async ctx => {
     const users = await asyncGetUsers();
     ctx.body = users;
   });
 
   // No visibility here since data is already public
-  router.get('data', async ctx => {
+  router.get('/data', async ctx => {
     const data = await asyncGetPublicData();
     ctx.body = data;
   });
