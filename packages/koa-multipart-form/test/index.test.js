@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -59,7 +58,7 @@ describe('koa-multipart-form', () => {
       const res = await chai
         .request(app)
         .post('/upload')
-        .field('key', [...new Array(10)].map(a => 'aaaaaaaa').join());
+        .field('key', [...new Array(10)].map(() => 'aaaaaaaa').join());
       chai.expect(res).to.have.status(500);
     });
   });
