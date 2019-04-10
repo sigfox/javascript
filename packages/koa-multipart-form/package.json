@@ -1,0 +1,59 @@
+{
+  "name": "@sigfox/koa-multipart-form",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Koa middleware handling multipart/form-data",
+  "keywords": [
+    "formData",
+    "koa",
+    "middleware",
+    "multipart"
+  ],
+  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "bugs": {
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
+  },
+  "dependencies": {
+    "formidable": "^1.2.1"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
+  }
+}
