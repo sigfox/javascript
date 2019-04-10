@@ -30,7 +30,7 @@ const getRoutes = () => {
   const router = new Router();
 
   // This will return the html page generated from the Nunjucks template provided to ctx.render
-  router.get('page', async (ctx) => {
+  router.get('/page', async (ctx) => {
     return ctx.render(
       'templateName',
       // Second parameter is a local value that will be available to this template.

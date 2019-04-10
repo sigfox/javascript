@@ -23,6 +23,9 @@
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
   },
+  "dependencies": {
+    "nunjucks": "^3.0.0"
+  },
   "devDependencies": {
     "@types/koa": "^2.0.48",
     "chai": "^4.2.0",
@@ -30,11 +33,7 @@
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "mocha": "^6.0.2",
-    "nunjucks": "^3.0.0",
     "nyc": "^13.3.0"
-  },
-  "peerDependencies": {
-    "nunjucks": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
