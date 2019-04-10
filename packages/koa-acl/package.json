@@ -24,21 +24,19 @@
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "@sigfox/koa-boom": "^1.0.0",
-    "@types/koa": "^2.0.48",
     "boom": "^7.3.0",
+    "lodash.intersection": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
     "koa": "^2.7.0",
-    "lodash": "^4.17.11",
+    "koa-router": "^7.4.0",
     "mocha": "^6.0.2",
     "nyc": "^13.3.0"
-  },
-  "peerDependencies": {
-    "@sigfox/koa-boom": "^1.0.0",
-    "boom": "^7.3.0",
-    "lodash": "^4.17.11"
   },
   "publishConfig": {
     "access": "public"

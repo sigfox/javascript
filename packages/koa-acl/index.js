@@ -1,6 +1,6 @@
 const { boomHelper } = require('@sigfox/koa-boom');
 const boom = require('boom');
-const intersection = require('lodash/intersection');
+const intersection = require('lodash.intersection');
 
 module.exports = (acl) => {
   const middlewares = {};

@@ -43,13 +43,9 @@ const addAdmin = (ctx, next) => {
   return next();
 };
 
-// Just provide the roles that can go through
-const adminAuthorizations = aclMiddleware({
-  roles: [ADMIN_ROLE]
-});
-
-// It can also be used this way
-const isAdmin = aclMiddleware({
+// Just provide the allowed roles and/or a query, this will generate middlewares that you can use together or separately
+const { roles: hasAdminRole, query: isAdmin } = aclMiddleware({
+  roles: [ADMIN_ROLE],
   query: ctx => !!(ctx.state.user && ctx.state.user.isAdmin)
 });
 
@@ -57,19 +53,19 @@ const getRoutes = () => {
   const router = new Router();
 
   // This will reach the controller
-  router.get('data/1', controller);
+  router.get('/data/1', controller);
 
   // This will reach the controller
-  router.get('data/2', addUser, adminAuthorizations, controller);
+  router.get('/data/2', addUser, hasAdminRole, controller);
 
   // This will return 403 because no user is provided
-  router.get('data/3', adminAuthorizations, controller);
+  router.get('/data/3', hasAdminRole, controller);
 
   // This will return 403 because no user is provided
-  router.get('data/4', isAdmin, controller);
+  router.get('/data/4', isAdmin, controller);
 
   // This will reach the controller
-  router.get('data/5', addAdmin, isAdmin, controller);
+  router.get('/data/5', addAdmin, isAdmin, controller);
 
   return router.routes();
 };
