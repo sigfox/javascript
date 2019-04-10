@@ -1,0 +1,59 @@
+{
+  "name": "@sigfox/joi-phone",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Joi extension for phone validation",
+  "keywords": [
+    "joi",
+    "extension",
+    "phone"
+  ],
+  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "bugs": {
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec test/**/*test.js"
+  },
+  "dependencies": {
+    "google-libphonenumber": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/joi": "^10.6.5",
+    "chai": "^4.2.0",
+    "joi": "^10.6.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
+  },
+  "peerDependencies": {
+    "joi": "^10.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "test/**/*"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
+  }
+}
