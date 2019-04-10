@@ -1,5 +1,5 @@
-const omit = require('lodash/omit');
-const pick = require('lodash/pick');
+const omit = require('lodash.omit');
+const pick = require('lodash.pick');
 
 const toJSON = obj => (obj.toJSON ? obj.toJSON() : obj);
 

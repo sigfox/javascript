@@ -27,7 +27,6 @@ const { asyncGetPublicData } = require('hypothetical-async-getters');
 const getRoutes = () => {
   const router = new Router();
 
-  // No queryFields here since data is already public
   router.get('data', queryFields, async ctx => {
     const data = await asyncGetPublicData();
     ctx.body = data;
