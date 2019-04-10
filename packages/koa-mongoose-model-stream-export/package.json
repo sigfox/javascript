@@ -1,0 +1,70 @@
+{
+  "name": "@sigfox/koa-mongoose-model-stream-export",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Mongoose schema to CSV/JSON",
+  "keywords": [
+    "export",
+    "koa",
+    "model",
+    "mongoose",
+    "stream"
+  ],
+  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "bugs": {
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
+  },
+  "dependencies": {
+    "JSONStream": "^1.3.2",
+    "csv-stringify": "^3.1.1",
+    "event-stream": "^3.3.4",
+    "lodash.get": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "chai-like": "^1.1.1",
+    "chai-things": "^0.2.0",
+    "chance": "^1.0.18",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.0.2",
+    "mongoose": "^4.6.8",
+    "nyc": "^13.3.0"
+  },
+  "peerDependencies": {
+    "mongoose": "^4.6.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
+  }
+}

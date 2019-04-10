@@ -21,8 +21,17 @@
       }
     ],
     "no-multi-assign": [0],
-    "no-param-reassign": ["error", { "props": false }],
-    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
-    "operator-linebreak": [2, "before", { "overrides": { "?": "after", "=": "after" } }]
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "arrow-parens": [2, "as-needed", {
+      "requireForBlockBody": true
+    }],
+    "operator-linebreak": [2, "before", {
+      "overrides": {
+        "?": "after",
+        "=": "after"
+      }
+    }]
   }
 }
