@@ -24,7 +24,7 @@ As a middleware:
 
 ```javascript
 const Koa = require('koa');
-const koaBoom = require('koa-boom');
+const koaBoom = require('@sigfox/koa-boom');
 
 const app = new Koa()
   .use(koaBoom())

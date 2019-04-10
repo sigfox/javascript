@@ -21,8 +21,8 @@ npm install @sigfox/koa-visibility
 ```javascript
 const Koa = require('koa');
 const Router = require('koa-router');
-const visibility = require('koa-visibility');
 const { asyncGetUsers, asyncGetPublicData } = require('hypothetical-async-getters');
+const visibility = require('@sigfox/koa-visibility');
 
 const PUBLIC_FIELDS = ['firstname', 'lastname'];
 const USER_FIELDS = ['company', 'email'];

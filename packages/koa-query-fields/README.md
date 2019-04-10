@@ -19,10 +19,10 @@ npm install @sigfox/koa-query-fields
 ## Usage
 
 ```javascript
-const queryFields = require('@sigfox/koa-query-fields');
 const Koa = require('koa');
 const Router = require('koa-router');
 const { asyncGetPublicData } = require('hypothetical-async-getters');
+const queryFields = require('@sigfox/koa-query-fields');
 
 const getRoutes = () => {
   const router = new Router();

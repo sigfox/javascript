@@ -21,7 +21,7 @@ npm install @sigfox/koa-health-check
 
 ```javascript
 const Koa = require('koa');
-const healthCheck = require('koa-health-check');
+const healthCheck = require('@sigfox/koa-health-check');
 
 const HEALTH_CHECK_DELAY = 2000;
 

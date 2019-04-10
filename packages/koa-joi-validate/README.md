@@ -23,7 +23,7 @@ npm install @sigfox/koa-joi-validate
 ```javascript
 const Joi = require('joi');
 const Koa = require('koa');
-const koaJoiValidate = require('koa-joi-validate');
+const koaJoiValidate = require('@sigfox/koa-joi-validate');
 
 const app = new Koa()
   .use(

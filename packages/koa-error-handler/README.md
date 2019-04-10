@@ -19,8 +19,8 @@ npm install @sigfox/koa-error-handler
 ## Usage
 
 ```javascript
-const errorHandler = require('@sigfox/koa-error-handler');
 const Koa = require('koa');
+const errorHandler = require('@sigfox/koa-error-handler');
 
 const app = new Koa().use(errorHandler()).listen();
 ```

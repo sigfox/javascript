@@ -21,7 +21,7 @@ npm install @sigfox/koa-acl
 ```javascript
 const Koa = require('koa');
 const Router = require('koa-router');
-const aclMiddleware = require('koa-acl');
+const aclMiddleware = require('@sigfox/koa-acl');
 const controller = require('hypothetical-controller');
 
 const ADMIN_ROLE = 'admin';
