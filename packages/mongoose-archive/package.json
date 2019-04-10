@@ -26,6 +26,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "chance": "^1.0.18",
     "mocha": "^6.0.2",
     "mongoose": "^4.6.8",
     "nyc": "^13.3.0"

@@ -45,6 +45,14 @@ const archiveUser = async UserModel => {
 };
 ```
 
+Restore resource
+
+```javascript
+const restoreUser = async user => {
+  await user.restore();
+};
+```
+
 ## Test
 
 ```bash
