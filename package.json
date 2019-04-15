@@ -2,7 +2,7 @@
   "name": "@sigfox/javascript",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --no-ci",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
     "prepublishOnly": "npm run lint",
