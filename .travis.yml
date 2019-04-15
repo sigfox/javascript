@@ -3,6 +3,9 @@ node_js:
   - 'node'
   - '8'
 
+services:
+  - mongodb
+
 # FIXME: Find a better way to cache all node_modules
 cache:
   directories:
