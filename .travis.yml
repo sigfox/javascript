@@ -47,6 +47,5 @@ deploy:
   script: 'npm run publish'
   skip_cleanup: true
   on:
-    branch: 'master'
     node: '8'
     tags: true
