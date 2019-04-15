@@ -73,12 +73,6 @@ const successType = getSuccessType(type); // FETCH_FOOBAR_SUCCESS
 const failureType = getFailureType(type); // FETCH_FOOBAR_FAILURE
 ```
 
-## Test
-
-```bash
-npm test
-```
-
 ## Usage - mergeReducers
 
 ```javascript

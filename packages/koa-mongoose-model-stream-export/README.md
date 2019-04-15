@@ -1,4 +1,6 @@
-# koa-mongoose-model-stream-export - Mongoose schema to CSV/JSON
+# koa-mongoose-model-stream-export
+
+Koa middleware mounting routes in order to export Mongoose schema to CSV/JSON.
 
 ## When use it?
 
