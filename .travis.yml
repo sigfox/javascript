@@ -48,4 +48,4 @@ deploy:
   skip_cleanup: true
   on:
     node: '8'
-    tags: true
+    branch: 'release'
