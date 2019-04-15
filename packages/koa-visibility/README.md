@@ -18,6 +18,10 @@ npm install @sigfox/koa-visibility
 
 ## Usage
 
+**visibility(config)**
+
+- `config` (`Object`) (`mandatory`): Object containing roles as keys, associated with the fields (`Array[String]`) that they can read.
+
 ```javascript
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -73,4 +77,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

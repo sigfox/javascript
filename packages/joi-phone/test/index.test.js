@@ -5,6 +5,34 @@ const { describe, it } = require('mocha');
 const joiExtended = joi.extend(require('../'));
 
 describe('joi-phone', () => {
+  describe('without any rule', () => {
+    describe('with valid phone', () => {
+      it('success', async () => {
+        const value = '+33123456789';
+        const result = joi.validate(value, joiExtended.phone());
+        chai.expect(result.error).to.equal(null);
+        chai.expect(result.value).to.equal(value);
+      });
+    });
+
+    describe('with valid mobile phone', () => {
+      it('success', async () => {
+        const value = '+32460224941';
+        const result = joi.validate(value, joiExtended.phone());
+        chai.expect(result.error).to.equal(null);
+        chai.expect(result.value).to.equal(value);
+      });
+    });
+
+    describe('with non E164 compliant phone number', () => {
+      it('success', async () => {
+        const value = '07 70 48 29 49';
+        const result = joi.validate(value, joiExtended.phone());
+        chai.expect(result.error).to.not.equal(null);
+      });
+    });
+  });
+
   describe('with validate rule', () => {
     describe('with non E164 compliant phone number', () => {
       it('fails', async () => {

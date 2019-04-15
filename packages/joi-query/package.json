@@ -8,13 +8,13 @@
     "extension",
     "query"
   ],
-  "homepage": "https://gitlab.partners.sigfox.com/sigfox/flive-app",
+  "homepage": "https://github.com/sigfox/javascript",
   "bugs": {
-    "url": "https://gitlab.partners.sigfox.com/sigfox/flive-app/issues"
+    "url": "https://github.com/sigfox/javascript/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.partners.sigfox.com/sigfox/flive-app.git"
+    "url": "git+https://github.com/sigfox/javascript.git"
   },
   "license": "MIT",
   "author": "Sigfox developers",

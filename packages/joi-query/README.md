@@ -3,18 +3,18 @@
 ## Features
 
 - [Joi](https://github.com/hapijs/joi)
-  - [`queryFilter`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/filter.js)
-  - [`queryOrder`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/order.js)
-  - [`queryLimit`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/limit.js)
-  - [`queryOffset`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/offset.js)
-  - [`queryFields`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/fields.js)
-  - [`queryEmbed`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/embed.js)
-  - [`queryBoolOperators`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/bool-operators.js)
-  - [`queryAltInOperator`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/alt-in-operator.js)
-  - [`queryAltRangeOperators`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/alt-range-operators.js)
-  - [`queryAndOperator`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/alt-operator.js)
-  - [`queryOrOperator`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/or-operator.js)
-  - [`queryAltExistsOperator`](https://gitlab.partners.sigfox.com/sigfox/flive-app/tree/master/packages/joi-query/lib/alt-exists-operator.js)
+  - [`queryFilter`](https://github.com/sigfox/javascript/packages/joi-query/lib/filter.js)
+  - [`queryOrder`](https://github.com/sigfox/javascript/packages/joi-query/lib/order.js)
+  - [`queryLimit`](https://github.com/sigfox/javascript/packages/joi-query/lib/limit.js)
+  - [`queryOffset`](https://github.com/sigfox/javascript/packages/joi-query/lib/offset.js)
+  - [`queryFields`](https://github.com/sigfox/javascript/packages/joi-query/lib/fields.js)
+  - [`queryEmbed`](https://github.com/sigfox/javascript/packages/joi-query/lib/embed.js)
+  - [`queryBoolOperators`](https://github.com/sigfox/javascript/packages/joi-query/lib/bool-operators.js)
+  - [`queryAltInOperator`](https://github.com/sigfox/javascript/packages/joi-query/lib/alt-in-operator.js)
+  - [`queryAltRangeOperators`](https://github.com/sigfox/javascript/packages/joi-query/lib/alt-range-operators.js)
+  - [`queryAndOperator`](https://github.com/sigfox/javascript/packages/joi-query/lib/alt-operator.js)
+  - [`queryOrOperator`](https://github.com/sigfox/javascript/packages/joi-query/lib/or-operator.js)
+  - [`queryAltExistsOperator`](https://github.com/sigfox/javascript/packages/joi-query/lib/alt-exists-operator.js)
 
 ## When use it?
 
@@ -43,4 +43,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

@@ -19,7 +19,17 @@ npm install @sigfox/koa-nunjucks
 
 ## Usage
 
-As a middleware:
+**koaNunjucks(path, globals)**
+
+- `path` (`String`) (`mandatory`): Path to your nunjucks templates.
+
+- `globals` (`Object`) (`default: {}`): Global data that will be available to all templates.
+
+**ctx.render(relPath, locals)**
+
+- `relPath` (`String`) (`mandatory`): Relative path (from global path) to the nunjucks template that you want to render. (ex: "pages/home" will render "global/path/to/your/templates/pages/home.njk")
+
+- `locals` (`Object`) (`default: {}`): Local data that will be available in this template only.
 
 ```javascript
 const Koa = require('koa');
@@ -66,4 +76,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

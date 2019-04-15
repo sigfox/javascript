@@ -3,6 +3,7 @@ const boom = require('boom');
 const Joi = require('joi');
 
 const koaJoiValidate = (schemasOrFunc, options = {}) => {
+  // @FIXME If schemasOrFunc is a Function, the unsupportedSchemas validation is useless.
   const unsupportedSchemas = Object.keys(schemasOrFunc).filter(
     schema => !['body', 'headers', 'params', 'query'].includes(schema)
   );

@@ -19,6 +19,8 @@ npm install @sigfox/koa-health-check
 
 ## Usage
 
+- `fieldToVerify` (`String`) (`default: "isShutdown"`): The name of the field in the ctx that /health will search for, if that field exists and is truthy, a 503 status will be responded.
+
 ```javascript
 const Koa = require('koa');
 const healthCheck = require('@sigfox/koa-health-check');
@@ -44,4 +46,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

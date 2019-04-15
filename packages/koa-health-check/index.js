@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 
-module.exports = (fieldToVerify = 'isShutdown') => {
+module.exports = (config = {}) => {
+  const { fieldToVerify = 'isShutdown' } = config;
   const router = new Router();
   router.get('/health', (ctx) => {
     if (ctx[fieldToVerify]) {

@@ -1,6 +1,6 @@
 # koa-error-handler
 
-Koa middleware handling errors.
+Koa middleware for Error Handling
 
 ## When use it?
 
@@ -8,7 +8,14 @@ This module can be used if you need an Error Handler for your Koa App.
 
 ## Features
 
-Mount an Error Handler to your Koa app.
+Mount an Error Handler to your Koa app. If an error is caught, this will be the response:
+```json
+{
+  "statusCode": 500,
+  "error": "Internal Server Error",
+  "message": "An internal server error occurred"
+}
+```
 
 ## Install
 
@@ -33,4 +40,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

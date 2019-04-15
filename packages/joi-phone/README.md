@@ -13,21 +13,9 @@ Joi extension for phone number validation.
   - [`mobile`](#mobile)
   - [`validate`](#validate)
 
-#### `phone`
-
-Generates a schema object that matches any phone number
-
-#### `mobile`
-
-Generates a schema object that matches any mobile phone number
-
-#### `validate`
-
-Validates a value using the schema
-
 ## When use it?
 
-This module can be used if you need to validate a phone number using Joi.
+This module can be used if you need to extend your Joi instance with a phone/mobile number validator.
 
 ## Install
 
@@ -37,16 +25,37 @@ npm install @sigfox/joi-phone
 
 ## Usage
 
+#### `phone`
+
+Generates a joi schema that matches any phone number.
+
+#### `mobile`
+
+Joi rule for mobile number matching.
+
+#### `validate`
+
+Joi rule for E.164 international format matching.
+
 ```javascript
 const joi = require('joi');
 const joiPhone = require('@sigfox/joi-phone');
 
 const joiExtended = joi.extend(joiPhone);
 
-const phoneValidation = joiExtended
+const phoneSchema = joiExtended
   .phone()
-  .mobile()
   .validate();
+
+const mobileSchema = joiExtended
+  .phone()
+  .mobile();
+
+joiExtended.validate('+33123456789', phoneSchema); // success
+joiExtended.validate('0000123456789', phoneSchema); // error
+
+joiExtended.validate('+1403 306-0485', mobileSchema); // success
+joiExtended.validate('+33123456789', mobileSchema); // error
 ```
 
 ## Test
@@ -57,4 +66,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

@@ -18,6 +18,10 @@ npm install @sigfox/koa-acl
 
 ## Usage
 
+- `roles` (`Array[String]`): These are the roles that the middleware will search for in `ctx.state` (`ctx.state.user.roles` or directly `ctx.state.roles`)
+
+- `query` (`Function`): A function taking ctx as a parameter. If falsy, the middleware will deny access.
+
 ```javascript
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -81,4 +85,4 @@ npm test
 
 ## Licence
 
-This project is licensed under the MIT License - see the [LICENSE](https://gitlab.partners.sigfox.com/sigfox/flive-app/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sigfox/javascript/blob/master/LICENSE) file for details.

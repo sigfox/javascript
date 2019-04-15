@@ -1,6 +1,6 @@
 const nunjucks = require('nunjucks');
 
-module.exports = (path, globals) => {
+module.exports = (path, globals = {}) => {
   const env = nunjucks.configure([path]);
   Object.keys(globals).forEach(key => env.addGlobal(key, globals[key]));
 
