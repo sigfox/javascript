@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-query-fields",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Koa middleware selecting fields from ctx.body depending on ctx.query.fields.",
   "keywords": [

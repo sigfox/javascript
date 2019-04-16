@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-visibility",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Koa middleware hiding fields from ctx.body depending on user roles.",
   "keywords": [
