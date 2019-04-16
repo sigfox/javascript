@@ -1,6 +1,6 @@
 const chai = require('chai');
 const Joi = require('joi');
-const { before, describe, it } = require('mocha');
+const { describe, it } = require('mocha');
 
 require('../.')(Joi);
 

@@ -8,7 +8,7 @@
     "extension",
     "query"
   ],
-  "homepage": "https://github.com/sigfox/javascript",
+  "homepage": "https://github.com/sigfox/javascript/tree/master/packages/joi-query",
   "bugs": {
     "url": "https://github.com/sigfox/javascript/issues"
   },
@@ -18,10 +18,13 @@
   },
   "license": "MIT",
   "author": "Sigfox developers",
+  "files": [
+    "index.js",
+    "lib"
+  ],
   "main": "index.js",
-  "typings": "index.d.ts",
   "scripts": {
-    "lint": "eslint --ext .js",
+    "lint": "eslint . --ext .js",
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec test/**/*test.js"
   },

@@ -8,7 +8,7 @@
     "koa",
     "middleware"
   ],
-  "homepage": "https://github.com/sigfox/javascript",
+  "homepage": "https://github.com/sigfox/javascript/tree/master/packages/koa-acl",
   "bugs": {
     "url": "https://github.com/sigfox/javascript/issues"
   },
@@ -18,9 +18,12 @@
   },
   "license": "MIT",
   "author": "Sigfox developers",
+  "files": [
+    "index.js"
+  ],
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .js",
+    "lint": "eslint . --ext .js",
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
   },

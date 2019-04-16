@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions: 0 */
 const Chance = require('chance');
 const { after, before, describe, it } = require('mocha');
 const chai = require('chai');
