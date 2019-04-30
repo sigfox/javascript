@@ -1,0 +1,50 @@
+{
+  "name": "@sigfox/universal-api-client",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Universal API client.",
+  "keywords": [
+    "api",
+    "client",
+    "universal"
+  ],
+  "homepage": "https://github.com/sigfox/javascript/tree/master/packages/universal-api-client",
+  "bugs": {
+    "url": "https://github.com/sigfox/javascript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigfox/javascript.git"
+  },
+  "license": "MIT",
+  "author": "Sigfox developers",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
+  "scripts": {
+    "build": "rollup --config",
+    "lint": "eslint src --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "BABEL_ENV=test nyc mocha --require @babel/register --check-leaks --reporter spec test/**/*test.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "@babel/runtime": "^7.4.3",
+    "@types/koa": "^2.0.48",
+    "chai": "^4.2.0",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

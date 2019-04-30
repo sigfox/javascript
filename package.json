@@ -1,0 +1,36 @@
+{
+  "name": "@sigfox/javascript",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap --no-ci",
+    "build": "lerna run build --stream",
+    "lint": "lerna run lint --stream",
+    "prepublishOnly": "npm run lint",
+    "publish": "lerna publish from-package --yes",
+    "test": "lerna exec --concurrency 1 npm test"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "@commitlint/config-lerna-scopes": "^7.5.1",
+    "@commitlint/prompt-cli": "^7.5.0",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-function-bind": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^4.19.1",
+    "eslint-config-sigfox": "^0.2.3",
+    "eslint-plugin-import": "^2.16.0",
+    "husky": "^1.3.1",
+    "lerna": "^3.13.1",
+    "rollup": "^1.7.4",
+    "rollup-plugin-babel": "^4.3.2"
+  }
+}

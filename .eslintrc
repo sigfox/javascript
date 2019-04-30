@@ -1,0 +1,37 @@
+{
+  "extends": "eslint-config-sigfox",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": false,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "import/no-commonjs": [0],
+    "max-len": [
+      "error",
+      100,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "no-multi-assign": [0],
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "arrow-parens": [2, "as-needed", {
+      "requireForBlockBody": true
+    }],
+    "operator-linebreak": [2, "before", {
+      "overrides": {
+        "?": "after",
+        "=": "after"
+      }
+    }]
+  }
+}
