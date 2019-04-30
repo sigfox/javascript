@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/joi-phone",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Joi extension for phone validation",
   "keywords": [

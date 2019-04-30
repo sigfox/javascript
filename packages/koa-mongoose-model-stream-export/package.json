@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-mongoose-model-stream-export",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Mongoose schema to CSV/JSON",
   "keywords": [

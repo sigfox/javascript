@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/redux-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Redux helpers.",
   "keywords": [
@@ -37,7 +37,7 @@
     "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/register": "^7.4.0",
     "@babel/runtime": "^7.4.3",
-    "@sigfox/redux-api-middleware": "^1.0.0",
+    "@sigfox/redux-api-middleware": "^1.0.1",
     "axios": "^0.18.0",
     "chai": "^4.2.0",
     "koa": "^2.7.0",

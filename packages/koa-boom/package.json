@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-boom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Koa middleware adding a custom boom method to the context.",
   "keywords": [

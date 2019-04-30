@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-health-check",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Koa middleware mounting the GET /health route returning the app status depending on ctx.isShutdown existence.",
   "keywords": [
