@@ -42,7 +42,7 @@ describe('koa-prometheus', () => {
     let app;
 
     before(() => {
-      app = new Koa().use(prometheus({ prefix: 'custom_prefix_', url: '/prometheus' }));
+      app = new Koa().use(prometheus({ prefix: 'custom_prefix_', route: '/prometheus' }));
       server = app.listen();
     });
 
