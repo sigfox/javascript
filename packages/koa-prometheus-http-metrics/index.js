@@ -2,7 +2,7 @@ const Prometheus = require('prom-client');
 
 let httpRequestDurationMs;
 
-module.exports = (options) => {
+module.exports = (options = {}) => {
   const {
     name = 'http_request_duration_ms',
     help = 'Duration of HTTP requests in ms',
