@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-k8s-ops-app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Instantiates a Koa app with default OPS middlewares.",
   "keywords": [
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@sigfox/koa-k8s-probes": "^1.0.0",
-    "@sigfox/koa-prometheus": "^1.0.0"
+    "@sigfox/koa-prometheus": "^1.1.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.48",
