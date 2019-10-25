@@ -6,7 +6,7 @@
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
     "prepublishOnly": "npm run lint",
-    "publish": "lerna publish from-package --yes",
+    "publish": "lerna publish from-package",
     "test": "lerna exec --concurrency 1 npm test"
   },
   "husky": {
