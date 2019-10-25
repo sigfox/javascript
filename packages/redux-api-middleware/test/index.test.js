@@ -18,6 +18,11 @@ const getRoutes = () => {
     ctx.status = 500;
   });
 
+  router.get('/other-error', (ctx) => {
+    ctx.status = 503;
+    ctx.body = '';
+  });
+
   return router.routes();
 };
 
@@ -57,7 +62,7 @@ describe('redux-api-middleware', () => {
   });
 
   describe('GET /error', () => {
-    it('should respond 200 & update the store -> failure: true', async () => {
+    it('should respond 500 & update the store -> failure: true', async () => {
       await store.dispatch({
         type: 'api',
         types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -67,6 +72,21 @@ describe('redux-api-middleware', () => {
       chai.expect(state.type).to.eql('FAILURE');
       chai.expect(state.error).to.eql('Internal Server Error');
       chai.expect(state.status).to.eql(500);
+    });
+  });
+
+  describe('GET /other-error', () => {
+    it('should respond 503 & update the store -> failure: true', async () => {
+      await store.dispatch({
+        type: 'api',
+        types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+        promise: client =>
+          client.request({ url: 'http://localhost:3000/other-error', method: 'get' })
+      });
+      const state = store.getState();
+      chai.expect(state.type).to.eql('FAILURE');
+      chai.expect(state.error).to.eql('Service Unavailable');
+      chai.expect(state.status).to.eql(503);
     });
   });
 });

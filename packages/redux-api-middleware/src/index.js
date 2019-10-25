@@ -23,7 +23,7 @@ export default function apiClientMiddleware(client) {
         dispatch({
           ...rest,
           type: FAILURE,
-          error: err.response ? err.response.data : err,
+          error: err.response ? err.response.data || err.response.statusText : err,
           status: err.response ? err.response.status : null,
           headers: err.response ? err.response.headers : null
         });
