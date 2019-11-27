@@ -1,10 +1,11 @@
-const boomHelper = (ctx, boomError) => {
+const defaultValidationError = ctx => ctx.status === 400;
+
+const boomHelper = (ctx, boomError, isValidationError = defaultValidationError) => {
   ctx.status = boomError.output.payload.statusCode;
   ctx.body = boomError.output.payload;
-  if (ctx.status === 400) {
+  if (isValidationError(ctx)) {
     const validation =
-      typeof boomError.data === 'string' ?
-        [
+      typeof boomError.data === 'string' ? [
             {
               message: ctx.body.message,
               path: boomError.data,
@@ -17,8 +18,8 @@ const boomHelper = (ctx, boomError) => {
   }
 };
 
-module.exports = () => (ctx, next) => {
-  ctx.boom = boomError => boomHelper(ctx, boomError);
+module.exports = (isValidationError = defaultValidationError) => (ctx, next) => {
+  ctx.boom = boomError => boomHelper(ctx, boomError, isValidationError);
   return next();
 };
 

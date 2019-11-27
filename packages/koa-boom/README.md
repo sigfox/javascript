@@ -9,8 +9,9 @@ You can use this module if you need to use the Sigfox way of formatting errors u
 ## Features
 
 - Mount a custom boom method to the context. ctx.status & ctx.body are filled by the Boom error content
-- A status 400 is considered as a validation error by koa-boom and add the formatted error to ctx.body.validation
 - Exports a boom helper that can be used by providing it the context. That can be a great alternative to using the middleware
+- Accepts a custom function taking the koa context as a parameter, it allows you to define when a validation error should be returned depending on the context.
+- By default, a status 400 is considered as a validation error by koa-boom and add the formatted error to ctx.body.validation
 
 ## Install
 
@@ -20,7 +21,7 @@ npm install @sigfox/koa-boom
 
 ## Usage
 
-As a middleware:
+### As a middleware:
 
 ```javascript
 const Koa = require('koa');
@@ -34,7 +35,23 @@ const app = new Koa()
   .listen();
 ```
 
-As a helper:
+#### with custom validation
+
+```javascript
+const Koa = require('koa');
+const koaBoom = require('@sigfox/koa-boom');
+
+const isValidationError = (ctx) => !![400, 423].includes(ctx.status);
+
+const app = new Koa()
+  .use(koaBoom(isValidationError)
+  .use(async ctx => {
+    return ctx.boom(boom.badRequest('invalid query'));
+  })
+  .listen();
+```
+
+### As a helper:
 
 ```javascript
 const Koa = require('koa');
@@ -44,6 +61,22 @@ const { boomHelper } = require('koa-boom');
 const app = new Koa()
   .use(async ctx => {
     return boomHelper(ctx, boom.badRequest('invalid query'));
+  })
+  .listen();
+```
+
+#### with custom validation
+
+```javascript
+const Koa = require('koa');
+const boom = require('boom');
+const { boomHelper } = require('koa-boom');
+
+const isValidationError = ctx => !![400, 423].includes(ctx.status);
+
+const app = new Koa()
+  .use(async ctx => {
+    return boomHelper(ctx, boom.badRequest('invalid query'), isValidationError);
   })
   .listen();
 ```
