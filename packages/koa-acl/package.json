@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-acl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "Koa middleware for ACL handling.",
   "keywords": [
@@ -28,7 +28,7 @@
     "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
   },
   "dependencies": {
-    "@sigfox/koa-boom": "^1.0.1",
+    "@sigfox/koa-boom": "^1.1.0",
     "boom": "^7.3.0",
     "lodash.intersection": "^4.4.0"
   },
