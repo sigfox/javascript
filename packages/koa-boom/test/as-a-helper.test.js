@@ -8,8 +8,13 @@ const { boomHelper } = require('..');
 
 chai.use(chaiHttp);
 
+const isValidationError = ctx => !![400, 423].includes(ctx.status);
+
 const boomRouter = new Router();
 boomRouter.post('/boom/:boomMethod', ctx => boomHelper(ctx, boom[ctx.params.boomMethod]()));
+boomRouter.post('/boom/:boomMethod/withCustomIsValidationError', ctx =>
+  boomHelper(ctx, boom[ctx.params.boomMethod](ctx.params.message), isValidationError)
+);
 boomRouter.post('/boom/:boomMethod/:message', ctx =>
   boomHelper(ctx, boom[ctx.params.boomMethod](ctx.params.message))
 );
@@ -32,6 +37,16 @@ const testRoute = ({ boomMethod, boomMessage, customMessage, status, error }) =>
     });
   });
 
+  describe('with custom isValidationError', () => {
+    it(`returns ${status}`, async () => {
+      const res = await chai.request(app).post(`/boom/${boomMethod}/withCustomIsValidationError`);
+      chai.expect(res).to.have.status(status);
+      chai.expect(res.body.statusCode).to.equal(status);
+      chai.expect(res.body.error).to.equal(error);
+      chai.expect(res.body.message).to.equal(boomMessage || error);
+    });
+  });
+
   if (customMessage) {
     describe(`with custom message: ${customMessage}`, () => {
       it(`returns ${status}`, async () => {
@@ -45,7 +60,7 @@ const testRoute = ({ boomMethod, boomMessage, customMessage, status, error }) =>
   }
 };
 
-describe('koa-boom: as a middleware', () => {
+describe('koa-boom: as a helper', () => {
   describe(
     'boom.badRequest',
     testRoute({
@@ -127,11 +142,31 @@ describe('koa-boom: as a middleware', () => {
   );
 
   describe(
+    'boom.gatewayTimeout',
+    testRoute({
+      boomMethod: 'gatewayTimeout',
+      status: 504,
+      error: 'Gateway Time-out',
+      customMessage: 'Foobar'
+    })
+  );
+
+  describe(
     'boom.teapot',
     testRoute({
       boomMethod: 'teapot',
       status: 418,
       error: "I'm a teapot",
+      customMessage: 'test'
+    })
+  );
+
+  describe(
+    'boom.locked',
+    testRoute({
+      boomMethod: 'locked',
+      status: 423,
+      error: 'Locked',
       customMessage: 'test'
     })
   );
