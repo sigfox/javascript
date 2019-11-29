@@ -1,0 +1,34 @@
+{
+  "collections": [
+    {
+      "name": "operators",
+      "fields": [
+        {
+          "name": "billing.email",
+          "method": "email"
+        },
+        {
+          "name": "billing.companyId",
+          "method": "natural"
+        },
+        {
+          "name": "contact.businessName",
+          "method": "string"
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "fields": [
+        {
+          "name": "charge.billing_details.name",
+          "method": "first"
+        },
+        {
+          "name": "charge.customer.city",
+          "method": "city"
+        }
+      ]
+    }
+  ]
+}
