@@ -35,10 +35,8 @@ const anonymize = async ({ db, collection }, callback) => {
         }
       });
       //add the update query to the queue
-      bulk.find({ filter: { _id: obj._id } }).updateOne({ $set: fieldsAnonymize });
+      bulk.find({ _id : obj._id }).updateOne({ $set: fieldsAnonymize });
     });
-    console.log('end of bulk operation: has operation ');
-    console.log(BulkHasOperations(bulk));
     callback(bulk);
   });
 };
@@ -58,17 +56,16 @@ const test = async () => {
   //Validate file data
   validateFileSchema();
 
-
   await client.connect();
   //TODO: pass bd variable
   const db = client.db('buy_tmp');
 
   //For each collection, anonymize data
   for (const collection of collections) {
-      await anonymize({ db, collection }, (bulk) => {
-        console.log('in final for execute');
+      anonymize({ db, collection }, (bulk) => {
+        console.log('Execute update operation');
         bulk.execute(function(err, updateResult) {
-          console.log(err, updateResult);
+          console.log(updateResult);
         })
       });
   }
