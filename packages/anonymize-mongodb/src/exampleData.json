@@ -1,0 +1,32 @@
+[
+  {
+    "name": "operators",
+    "fields": [
+      {
+        "name": "billing.email",
+        "anonymize": "email"
+      },
+      {
+        "name": "billing.companyId",
+        "anonymize": "natural"
+      },
+      {
+        "name": "contact.businessName",
+        "anonymize": "string"
+      }
+    ]
+  },
+  {
+    "name": "orders",
+    "fields": [
+      {
+        "name": "charge.billing_details.name",
+        "anonymize": "first"
+      },
+      {
+        "name": "charge.customer.city",
+        "anonymize": "city"
+      }
+    ]
+  }
+]
