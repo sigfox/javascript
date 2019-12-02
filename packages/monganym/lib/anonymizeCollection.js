@@ -8,7 +8,7 @@ module.exports = async function anonymizeCollection(db, collectionConfig, chance
   });
 
   const batchSize = collectionConfig.batchSize || 100;
-  const cursor = collection.find({}, { projection }).batchSize(batchSize);
+  const cursor = collection.find({}, { projection, sort: { _id: 1 } }).batchSize(batchSize);
 
   let bulk = collection.initializeUnorderedBulkOp();
   let count = 0;

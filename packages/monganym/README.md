@@ -13,7 +13,7 @@ npm i @sigfox/mongoanym
 ### CLI
 
 ```
-npx mongoanym 192.168.0.5/foo --config examples/foo.json
+npx mongoanym mongodb://192.168.0.5/foo --config examples/config.json
 ```
 
 ### As a module
