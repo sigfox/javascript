@@ -1,0 +1,27 @@
+{
+  "collections": [
+    {
+      "name": "users",
+      "batchSize": 2000,
+      "fields": [
+        {
+          "name": "name",
+          "method": "first"
+        },
+        {
+          "name": "email",
+          "method": "email"
+        },
+        {
+          "name": "address.name",
+          "method": "string"
+        },
+        {
+          "name": "address.phone",
+          "method": "phone",
+          "args": {"formatted": true}
+        }
+      ]
+    }
+  ]
+}
