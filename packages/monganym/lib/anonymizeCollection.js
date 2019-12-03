@@ -29,8 +29,10 @@ module.exports = async function anonymizeCollection(db, collectionConfig, chance
       return newDocument;
     }, {});
 
-    bulk.find({ _id: document._id }).updateOne({ $set: fieldsAnonymized });
-    count += 1;
+    if(Object.keys(fieldsAnonymized).length >= 1) {
+      bulk.find({ _id: document._id }).updateOne({ $set: fieldsAnonymized });
+      count += 1;
+    }
     if (count >= batchSize) {
       // eslint-disable-next-line no-await-in-loop
       await bulk.execute();
