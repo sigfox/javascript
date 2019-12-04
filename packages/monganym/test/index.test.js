@@ -1,5 +1,6 @@
 const chai = require('chai');
-const { describe, it } = require('mocha');
+const chaiAsPromised = require('chai-as-promised');
+const {describe, it} = require('mocha');
 const monganym = require('./../lib');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -26,7 +27,7 @@ const chance = new Chance('test_database');
 
 //create a new user
 const createUser = () => ({
-  name: chance.first(),
+  name: chance.string(),
   email: chance.string(),
   address: {
     name: chance.string(),
@@ -38,9 +39,9 @@ const createUser = () => ({
 describe('Test anonymize script', () => {
 
   before(function (done) {
-
+    chai.use(chaiAsPromised);
     this.chance = new Chance(DATABASE_TEST);
-    mongoose.connect(MONGO_TEST_URL);
+    mongoose.connect(MONGO_TEST_URL, {useNewUrlParser: true});
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error'));
     db.once('open', function () {
@@ -56,33 +57,30 @@ describe('Test anonymize script', () => {
 
   describe('with invalid config file', () => {
     it('should throw an error', async () => {
-      const user = await User(createUser()).save();
-      try {
-        await monganym(MONGO_TEST_URL, {"collections": []});
-      } catch (e) {
-        User.findOne({_id: user._id}, (err, elt) => {
-          if (err) {
-            throw err
-          }
-          chai.expect(elt.email).to.equal(user.email);
-        });
-      }
+      chai.expect(monganym(MONGO_TEST_URL, {"collections": []})).to.be.rejectedWith("does not meet minimum length of 1")
     });
   });
 
   describe('with valid config file', () => {
     it('should anonymize', async () => {
-      const user = await User(createUser()).save();
+      let nb = 0;
+      let users = [];
+      while (nb < 4) {
+        users.push(await User(createUser()).save());
+        nb++;
+      }
       await monganym(MONGO_TEST_URL, config);
-      User.findOne({_id: user._id}, (err, elt) => {
-        if (err) {
-          throw err
-        }
-        chai.expect(elt.name).to.not.equal(user.name);
-        chai.expect(elt.email).to.not.equal(user.email);
-        chai.expect(elt.address.name).to.not.equal(user.address.name);
-        chai.expect(elt.address.phone).to.not.equal(user.address.phone);
-        chai.expect(elt.address.country).to.equal(user.address.country);
+      await users.forEach(user => {
+        User.findOne({_id: user._id}, async (err, elt) => {
+          if (err) {
+            throw err
+          }
+          chai.expect(elt.name).to.not.equal(user.name);
+          chai.expect(elt.email).to.not.equal(user.email);
+          chai.expect(elt.address.name).to.not.equal(user.address.name);
+          chai.expect(elt.address.phone).to.not.equal(user.address.phone);
+          chai.expect(elt.address.country).to.equal(user.address.country);
+        });
       });
     });
   });
