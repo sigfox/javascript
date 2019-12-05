@@ -23,7 +23,7 @@
   "scripts": {
     "lint": "eslint src --ext .js",
     "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
-    "test": "BABEL_ENV=test nyc mocha --require @babel/register --check-leaks --reporter spec test/**/*test.js"
+    "test": "BABEL_ENV=test nyc mocha --check-leaks --reporter spec test/**/*test.js"
   },
   "bin": {
     "monganym": "bin/monganym.js"
