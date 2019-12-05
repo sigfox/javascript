@@ -2,7 +2,7 @@
   "name": "@sigfox/monganym",
   "version": "1.0.0",
   "private": false,
-  "description": "Anonimyze mongodb.",
+  "description": "Anonymize mongodb database.",
   "keywords": [
     "anonimyze",
     "mongodb"
