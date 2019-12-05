@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/monganym",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Anonymize mongodb database.",
   "keywords": [
@@ -36,10 +36,10 @@
     "yargs": "^15.0.2"
   },
   "devDependencies": {
-    "mongoose": "^5.7.13",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "mocha": "^6.0.2",
+    "mongoose": "^5.7.13",
     "nyc": "^13.3.0"
   },
   "publishConfig": {
