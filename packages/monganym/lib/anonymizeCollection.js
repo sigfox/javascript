@@ -5,7 +5,7 @@ module.exports = async function anonymizeCollection(db, collectionConfig, chance
   const projection = collectionConfig.fields.reduce((acc, field) => {
     acc[field.name] = 1;
     return acc;
-  });
+  }, {});
 
   const batchSize = collectionConfig.batchSize || 100;
   const cursor = collection.find({}, { projection, sort: { _id: 1 } }).batchSize(batchSize);
@@ -23,13 +23,14 @@ module.exports = async function anonymizeCollection(db, collectionConfig, chance
     const fieldsAnonymized = collectionConfig.fields.reduce((newDocument, field) => {
       if (_.get(document, field.name)) {
         const method = methodsByField[field.name];
-        newDocument[field.name] = chance[method.name](method.args);
+        const value = chance[method.name](method.args);
+        newDocument[field.name] = value;
       }
 
       return newDocument;
     }, {});
 
-    if(Object.keys(fieldsAnonymized).length >= 1) {
+    if (Object.keys(fieldsAnonymized).length >= 1) {
       bulk.find({ _id: document._id }).updateOne({ $set: fieldsAnonymized });
       count += 1;
     }
