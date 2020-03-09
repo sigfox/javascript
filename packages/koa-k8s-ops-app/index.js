@@ -3,7 +3,7 @@ const promMiddleware = require('@sigfox/koa-prometheus');
 const Koa = require('koa');
 
 class KoaOps extends Koa {
-  constructor({ probes, prometheus }) {
+  constructor({ probes, prometheus } = {}) {
     super();
     this.use(promMiddleware(prometheus));
     this.use(k8sProbes(probes));
