@@ -2,72 +2,193 @@ const boom = require('boom');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const Koa = require('koa');
+const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
 const { describe, it } = require('mocha');
 const { boomHelper } = require('..');
 
 chai.use(chaiHttp);
 
-const isValidationError = ctx => !![400, 423].includes(ctx.status);
+const isValidationError = ctx => !![400, 422].includes(ctx.status);
 
 const boomRouter = new Router();
-boomRouter.post('/boom/:boomMethod', ctx => boomHelper(ctx, boom[ctx.params.boomMethod]()));
-boomRouter.post('/boom/:boomMethod/withCustomIsValidationError', ctx =>
-  boomHelper(ctx, boom[ctx.params.boomMethod](ctx.params.message), isValidationError)
+boomRouter.post('/boom/:boomMethod', ctx =>
+  boomHelper(
+    ctx,
+    boom[ctx.params.boomMethod](ctx.params.boomMessage, ctx.request.body),
+    isValidationError
+  )
 );
-boomRouter.post('/boom/:boomMethod/:message', ctx =>
-  boomHelper(ctx, boom[ctx.params.boomMethod](ctx.params.message))
-);
+boomRouter.post('/boom/:boomMethod/:boomMessage', (ctx) => {
+  boomHelper(
+    ctx,
+    boom[ctx.params.boomMethod](ctx.params.boomMessage, ctx.request.body),
+    isValidationError
+  );
+});
 
-const app = new Koa().use(boomRouter.routes()).callback();
+const app = new Koa()
+  .use(bodyParser({ enableTypes: ['text', 'json'] }))
+  .use(boomRouter.routes())
+  .callback();
 
-// boomMethod: the method of Boom that is passed to ctx.boom
-// boomMessage: it is the message that we expect to find in res.body.message
-// when boom is called without a custom message
-// customMessage: it is the custom message passed to boom
-
-const testRoute = ({ boomMethod, boomMessage, customMessage, status, error }) => () => {
-  describe('without message', () => {
-    it(`returns ${status}`, async () => {
+const testRoute = ({
+  boomMethod,
+  boomMessage,
+  boomData,
+  expectedMessage,
+  expectedCustomMessage,
+  expectedValidation,
+  expectedStatus,
+  expectedError
+}) => () => {
+  describe('with standard boom message', () => {
+    it(`returns ${expectedStatus}`, async () => {
       const res = await chai.request(app).post(`/boom/${boomMethod}`);
-      chai.expect(res).to.have.status(status);
-      chai.expect(res.body.statusCode).to.equal(status);
-      chai.expect(res.body.error).to.equal(error);
-      chai.expect(res.body.message).to.equal(boomMessage || error);
+      chai.expect(res).to.have.status(expectedStatus);
+      chai.expect(res.body.statusCode).to.equal(expectedStatus);
+      chai.expect(res.body.error).to.equal(expectedError);
+      chai.expect(res.body.message).to.equal(expectedMessage);
     });
   });
-
-  describe('with custom isValidationError', () => {
-    it(`returns ${status}`, async () => {
-      const res = await chai.request(app).post(`/boom/${boomMethod}/withCustomIsValidationError`);
-      chai.expect(res).to.have.status(status);
-      chai.expect(res.body.statusCode).to.equal(status);
-      chai.expect(res.body.error).to.equal(error);
-      chai.expect(res.body.message).to.equal(boomMessage || error);
+  if (boomMessage) {
+    describe(`with boom message: ${boomMessage}`, () => {
+      it(`returns ${expectedStatus}`, async () => {
+        const res = await chai
+          .request(app)
+          .post(`/boom/${boomMethod}/${boomMessage}`)
+          .type(typeof boomData === 'string' ? 'text' : 'json')
+          .send(boomData);
+        chai.expect(res).to.have.status(expectedStatus);
+        chai.expect(res.body.statusCode).to.equal(expectedStatus);
+        chai.expect(res.body.error).to.equal(expectedError);
+        chai.expect(res.body.message).to.equal(expectedCustomMessage);
+      });
     });
-  });
-
-  if (customMessage) {
-    describe(`with custom message: ${customMessage}`, () => {
-      it(`returns ${status}`, async () => {
-        const res = await chai.request(app).post(`/boom/${boomMethod}/${customMessage}`);
-        chai.expect(res).to.have.status(status);
-        chai.expect(res.body.statusCode).to.equal(status);
-        chai.expect(res.body.error).to.equal(error);
-        chai.expect(res.body.message).to.equal(customMessage);
+  }
+  if (boomData) {
+    describe(`with boom data: ${Array.isArray(boomData) ? 'array' : typeof boomData}`, () => {
+      it(`returns ${expectedStatus}`, async () => {
+        const res = await chai
+          .request(app)
+          .post(`/boom/${boomMethod}/${boomMessage}`)
+          .type(typeof boomData === 'string' ? 'text' : 'json')
+          .send(boomData);
+        chai.expect(res).to.have.status(expectedStatus);
+        chai.expect(res.body.statusCode).to.equal(expectedStatus);
+        chai.expect(res.body.error).to.equal(expectedError);
+        chai.expect(res.body.message).to.equal(expectedCustomMessage);
+        chai.expect(res.body.validation).to.deep.equal(expectedValidation);
       });
     });
   }
 };
 
-describe('koa-boom: as a helper', () => {
+describe('koa-boom: as a middleware', () => {
   describe(
     'boom.badRequest',
     testRoute({
       boomMethod: 'badRequest',
-      status: 400,
-      error: 'Bad Request',
-      customMessage: 'Foobar'
+      expectedStatus: 400,
+      expectedError: 'Bad Request',
+      expectedMessage: 'Bad Request',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
+    })
+  );
+
+  describe(
+    'boom.badRequest (with data as "string" for validation details)',
+    testRoute({
+      boomMethod: 'badRequest',
+      boomMessage: 'country does not exist',
+      boomData: 'address.country',
+      expectedStatus: 400,
+      expectedError: 'Bad Request',
+      expectedMessage: 'Bad Request',
+      expectedCustomMessage: 'country does not exist',
+      expectedValidation: [
+        {
+          message: 'country does not exist',
+          path: 'address.country',
+          type: 'custom',
+          context: { key: 'country' }
+        }
+      ]
+    })
+  );
+
+  describe(
+    'boom.badData (with data as "string" for validation details)',
+    testRoute({
+      boomMethod: 'badData',
+      boomMessage: 'country does not exist',
+      boomData: 'address.country',
+      expectedStatus: 422,
+      expectedError: 'Unprocessable Entity',
+      expectedMessage: 'Unprocessable Entity',
+      expectedCustomMessage: 'country does not exist',
+      expectedValidation: [
+        {
+          message: 'country does not exist',
+          path: 'address.country',
+          type: 'custom',
+          context: { key: 'country' }
+        }
+      ]
+    })
+  );
+
+  describe(
+    'boom.badRequest (with data as "object" for validation details)',
+    testRoute({
+      boomMethod: 'badRequest',
+      boomMessage: 'country does not exist',
+      boomData: {
+        field: 'address.country',
+        type: 'invalid-country',
+        value: 'Pleurote'
+      },
+      expectedStatus: 400,
+      expectedError: 'Bad Request',
+      expectedMessage: 'Bad Request',
+      expectedCustomMessage: 'country does not exist',
+      expectedValidation: [
+        {
+          message: 'country does not exist',
+          path: 'address.country',
+          type: 'invalid-country',
+          context: { key: 'country', value: 'Pleurote' }
+        }
+      ]
+    })
+  );
+
+  describe(
+    'boom.badRequest (with data as "array" for validation details)',
+    testRoute({
+      boomMethod: 'badRequest',
+      boomMessage: 'country does not exist',
+      boomData: [
+        {
+          message: 'country does not exist',
+          path: 'address.country',
+          type: 'invalid-country',
+          context: { key: 'country', value: 'Pleurote' }
+        }
+      ],
+      expectedStatus: 400,
+      expectedError: 'Bad Request',
+      expectedMessage: 'Bad Request',
+      expectedCustomMessage: 'country does not exist',
+      expectedValidation: [
+        {
+          message: 'country does not exist',
+          path: 'address.country',
+          type: 'invalid-country',
+          context: { key: 'country', value: 'Pleurote' }
+        }
+      ]
     })
   );
 
@@ -75,9 +196,11 @@ describe('koa-boom: as a helper', () => {
     'boom.unauthorized',
     testRoute({
       boomMethod: 'unauthorized',
-      status: 401,
-      error: 'Unauthorized',
-      customMessage: 'Foobar'
+      expectedStatus: 401,
+      expectedError: 'Unauthorized',
+      expectedMessage: 'Unauthorized',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 
@@ -85,9 +208,11 @@ describe('koa-boom: as a helper', () => {
     'boom.forbidden',
     testRoute({
       boomMethod: 'forbidden',
-      status: 403,
-      error: 'Forbidden',
-      customMessage: 'Foobar'
+      expectedStatus: 403,
+      expectedError: 'Forbidden',
+      expectedMessage: 'Forbidden',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 
@@ -95,9 +220,11 @@ describe('koa-boom: as a helper', () => {
     'boom.notFound',
     testRoute({
       boomMethod: 'notFound',
-      status: 404,
-      error: 'Not Found',
-      customMessage: 'Foobar'
+      expectedStatus: 404,
+      expectedError: 'Not Found',
+      expectedMessage: 'Not Found',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 
@@ -105,9 +232,12 @@ describe('koa-boom: as a helper', () => {
     'boom.badImplementation',
     testRoute({
       boomMethod: 'badImplementation',
-      status: 500,
-      error: 'Internal Server Error',
-      boomMessage: 'An internal server error occurred'
+      expectedStatus: 500,
+      expectedError: 'Internal Server Error',
+      expectedMessage: 'An internal server error occurred',
+      boomMessage: 'Foobar',
+      // unlike other method boom message does not override message in the returned payload
+      expectedCustomMessage: 'An internal server error occurred'
     })
   );
 
@@ -115,9 +245,11 @@ describe('koa-boom: as a helper', () => {
     'boom.badGateway',
     testRoute({
       boomMethod: 'badGateway',
-      status: 502,
-      error: 'Bad Gateway',
-      customMessage: 'Foobar'
+      expectedStatus: 502,
+      expectedError: 'Bad Gateway',
+      expectedMessage: 'Bad Gateway',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 
@@ -125,9 +257,11 @@ describe('koa-boom: as a helper', () => {
     'boom.serverUnavailable',
     testRoute({
       boomMethod: 'serverUnavailable',
-      status: 503,
-      error: 'Service Unavailable',
-      customMessage: 'Foobar'
+      expectedStatus: 503,
+      expectedError: 'Service Unavailable',
+      expectedMessage: 'Service Unavailable',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 
@@ -135,19 +269,11 @@ describe('koa-boom: as a helper', () => {
     'boom.gatewayTimeout',
     testRoute({
       boomMethod: 'gatewayTimeout',
-      status: 504,
-      error: 'Gateway Time-out',
-      customMessage: 'Foobar'
-    })
-  );
-
-  describe(
-    'boom.gatewayTimeout',
-    testRoute({
-      boomMethod: 'gatewayTimeout',
-      status: 504,
-      error: 'Gateway Time-out',
-      customMessage: 'Foobar'
+      expectedStatus: 504,
+      expectedError: 'Gateway Time-out',
+      expectedMessage: 'Gateway Time-out',
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 
@@ -155,19 +281,11 @@ describe('koa-boom: as a helper', () => {
     'boom.teapot',
     testRoute({
       boomMethod: 'teapot',
-      status: 418,
-      error: "I'm a teapot",
-      customMessage: 'test'
-    })
-  );
-
-  describe(
-    'boom.locked',
-    testRoute({
-      boomMethod: 'locked',
-      status: 423,
-      error: 'Locked',
-      customMessage: 'test'
+      expectedStatus: 418,
+      expectedError: "I'm a teapot",
+      expectedMessage: "I'm a teapot",
+      boomMessage: 'Foobar',
+      expectedCustomMessage: 'Foobar'
     })
   );
 });

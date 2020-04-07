@@ -33,6 +33,75 @@ const app = new Koa()
     return ctx.boom(boom.badRequest('invalid query'));
   })
   .listen();
+// it will set the body with:
+// {
+//   statusCode: 400,
+//   error: 'Bad Request',
+//   message: 'invalid query'
+// }
+
+app.use(async ctx => {
+  return ctx.boom(boom.badRequest('device does not exist', 'message.deviceId'));
+});
+// it will set the body with:
+// {
+//   statusCode: 400,
+//   error: 'Bad Request',
+//   message: 'device does not exist',
+//   validation: [{
+//    message: 'device does not exist',
+//    path: 'message.deviceId',
+//    type: 'custom',
+//    context: { key: 'deviceId' }
+//   }]
+// }
+
+app.use(async ctx => {
+  return ctx.boom(
+    boom.badRequest('device does not exist', {
+      field: 'message.deviceId',
+      type: 'unknown',
+      value: 'XXXX'
+    })
+  );
+});
+// it will set the body with:
+// {
+//   statusCode: 400,
+//   error: 'Bad Request',
+//   message: 'device does not exist',
+//   validation: [{
+//    message: 'device does not exist',
+//    path: 'message.deviceId',
+//    type: 'unknown',
+//    context: { key: 'deviceId', value: 'XXXX' }
+//   }]
+// }
+
+app.use(async ctx => {
+  return ctx.boom(
+    boom.badRequest('device does not exist', [
+      {
+        message: 'device does not exist',
+        path: 'message.deviceId',
+        type: 'unknown',
+        context: { key: 'deviceId', value: 'XXXX' }
+      }
+    ])
+  );
+});
+// it will set the body with:
+// {
+//   statusCode: 400,
+//   error: 'Bad Request',
+//   message: 'device does not exist',
+//   validation: [{
+//    message: 'device does not exist',
+//    path: 'message.deviceId',
+//    type: 'unknown',
+//    context: { key: 'deviceId', value: 'XXXX' }
+//   }]
+// }
 ```
 
 #### with custom validation
@@ -46,9 +115,15 @@ const isValidationError = (ctx) => !![400, 423].includes(ctx.status);
 const app = new Koa()
   .use(koaBoom(isValidationError)
   .use(async ctx => {
-    return ctx.boom(boom.badRequest('invalid query'));
+    return ctx.boom(boom.badData('invalid query'));
   })
   .listen();
+// it will set the body with:
+// {
+//   statusCode: 422,
+//   error: 'Unprocessable Entity',
+//   message: 'invalid query'
+// }
 ```
 
 ### As a helper:
@@ -76,7 +151,7 @@ const isValidationError = ctx => !![400, 423].includes(ctx.status);
 
 const app = new Koa()
   .use(async ctx => {
-    return boomHelper(ctx, boom.badRequest('invalid query'), isValidationError);
+    return boomHelper(ctx, boom.badData('invalid query'), isValidationError);
   })
   .listen();
 ```
