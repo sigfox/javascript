@@ -40,15 +40,21 @@
     "@types/koa": "^2.0.48",
     "boom": "^7.3.0",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "chai-http": "^4.2.1",
-    "joi": "^10.6.0",
+    "joi": "10.6.0",
+    "joi10": "npm:joi@^10.6.0",
+    "joi13": "npm:joi@^13.7.0",
+    "joi15": "npm:@hapi/joi@^15.1.1",
+    "joi16": "npm:@hapi/joi@^16.1.8",
+    "joi17": "npm:@hapi/joi@^17.1.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "mocha": "^6.0.2",
     "nyc": "^13.3.0"
   },
   "peerDependencies": {
-    "joi": "^10.6.0"
+    "joi": ">=10.6.0 <=17"
   },
   "publishConfig": {
     "access": "public"
