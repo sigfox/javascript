@@ -1,16 +1,13 @@
 const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
 const chaiHttp = require('chai-http');
-const Joi10 = require('joi10');
-const Joi13 = require('joi13');
-const Joi15 = require('joi15');
+const Joi16 = require('joi16');
+const Joi17 = require('joi17');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const { describe, it } = require('mocha');
 const koaJoiValidate = require('..');
 
 chai.use(chaiHttp);
-chai.use(chaiAsPromised);
 chai.should();
 
 const policeMan = {
@@ -29,7 +26,7 @@ const policeManController = (ctx) => {
   ctx.body = ctx.request.body;
 };
 
-[Joi10, Joi13, Joi15].forEach((Joi) => {
+[Joi16, Joi17].forEach((Joi) => {
   const policeManValidate = koaJoiValidate(
     {
       body: Joi.object().keys({
@@ -176,12 +173,12 @@ const policeManController = (ctx) => {
             chai
               .expect(res.body.message)
               .to.equal(
-                'child "firstname" fails because ["firstname" is required]. '
-                  + 'child "lastname" fails because ["lastname" is required]. '
-                  + 'child "age" fails because ["age" is required]. '
-                  + 'child "job" fails because ["job" is required]. '
-                  + 'child "city" fails because ["city" is required]. '
-                  + 'child "address" fails because ["address" is required]'
+                '"firstname" is required. '
+                  + '"lastname" is required. '
+                  + '"age" is required. '
+                  + '"job" is required. '
+                  + '"city" is required. '
+                  + '"address" is required'
               );
             ['firstname', 'lastname', 'age', 'job', 'city', 'address'].forEach((field, index) => {
               chai.expect(res.body.validation[index].message).to.equal(`"${field}" is required`);
@@ -197,12 +194,8 @@ const policeManController = (ctx) => {
               .post('/')
               .send(policeManWithoutStreet);
             res.should.have.status(400);
-            chai
-              .expect(res.body.message)
-              .to.equal(
-                'child "address" fails because [child "street" fails because ["street" is required]]'
-              );
-            chai.expect(res.body.validation[0].message).to.equal('"street" is required');
+            chai.expect(res.body.message).to.equal('"address.street" is required');
+            chai.expect(res.body.validation[0].message).to.equal('"address.street" is required');
             chai.expect(res.body.validation[0].path).to.equal('address.street');
             chai.expect(res.body.validation[0].type).to.equal('any.required');
           });
@@ -223,16 +216,12 @@ const policeManController = (ctx) => {
               .post('/?jobType=NotValid')
               .send(policeMan);
             res.should.have.status(400);
-            chai
-              .expect(res.body.message)
-              .to.equal(
-                'child "jobType" fails because ["jobType" must be one of [Deputy, Sheriff]]'
-              );
+            chai.expect(res.body.message).to.equal('"jobType" must be one of [Deputy, Sheriff]');
             chai
               .expect(res.body.validation[0].message)
               .to.equal('"jobType" must be one of [Deputy, Sheriff]');
             chai.expect(res.body.validation[0].path).to.equal('jobType');
-            chai.expect(res.body.validation[0].type).to.equal('any.allowOnly');
+            chai.expect(res.body.validation[0].type).to.equal('any.only');
           });
         });
       });
