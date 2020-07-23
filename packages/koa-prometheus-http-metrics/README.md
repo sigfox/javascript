@@ -18,9 +18,15 @@ npm install @sigfox/koa-prometheus-http-metrics
 const promHttpMetrics = require('@sigfox/koa-prometheus-http-metrics');
 const Koa = require('koa');
 
-const app = new Koa().use(promHttpMetrics());
+const app = new Koa().use(
+  promHttpMetrics({
+    filter: path => !path.includes('/admin') // remove admin routes from prometheus monitoring
+  })
+);
 const server = app.listen();
 ```
+
+By default the label used is the `ctx.path` given by Koa, if `@koa-router` is used `ctx.routerPath` will be used to group requests going to the same route. For example GET /users/1 and GET /users/2 requests matching the route /users/:id will be grouped using the label `/users/:id`.
 
 ## Test
 
