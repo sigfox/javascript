@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/sigfox/javascript/compare/@sigfox/koa-prometheus-http-metrics@1.1.1...@sigfox/koa-prometheus-http-metrics@1.2.0) (2020-07-23)
+
+
+### Features
+
+* use ctx.routerPath over ctx.path and add filter option ([932a2bb](https://github.com/sigfox/javascript/commit/932a2bb))
+
+
+
+
+
 ## [1.1.1](https://github.com/sigfox/javascript/compare/@sigfox/koa-prometheus-http-metrics@1.1.0...@sigfox/koa-prometheus-http-metrics@1.1.1) (2019-06-17)
 
 
