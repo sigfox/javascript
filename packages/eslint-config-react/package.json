@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/eslint-config-react",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "description": "Eslint config for React projects used @ Sigfox",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "url": "git@gitlab.partners.sigfox.com:sigfox/eslint-config-sigfox.git"
   },
   "dependencies": {
-    "@sigfox/eslint-config": "^0.2.8"
+    "@sigfox/eslint-config": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
