@@ -1,0 +1,19 @@
+# gitignore
+
+node_modules
+
+# Only apps should have lockfiles
+yarn.lock
+package-lock.json
+
+ncp-debug.log
+npm-debug.log
+yarn-error.log
+
+# IDE specifics
+.idea
+.jshintrc
+.vscode
+
+# MAC OS
+.DS_Store

@@ -1,0 +1,40 @@
+{
+  "name": "@sigfox/eslint-config-react",
+  "version": "0.2.10",
+  "description": "Eslint config for React projects used @ Sigfox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "config",
+    "eslint",
+    "eslintconfig",
+    "react",
+    "sigfox"
+  ],
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.partners.sigfox.com:sigfox/eslint-config-sigfox.git"
+  },
+  "dependencies": {
+    "@sigfox/eslint-config": "^0.2.8"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.5.1"
+  },
+  "peerDependencies": {
+    "eslint": "^4.0.0 || ^5.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.5.1"
+  }
+}
