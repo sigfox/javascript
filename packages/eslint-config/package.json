@@ -1,0 +1,40 @@
+{
+  "name": "@sigfox/eslint-config",
+  "version": "0.2.8",
+  "description": "Eslint rules used @ Sigfox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eslint",
+    "sigfox",
+    "eslintconfig",
+    "config",
+    "javascript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 8"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.partners.sigfox.com:sigfox/eslint-config-sigfox.git"
+  },
+  "dependencies": {
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
+    "eslint-restricted-globals": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.16.0"
+  },
+  "peerDependencies": {
+    "eslint": "^4.0.0 || ^5.0.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
