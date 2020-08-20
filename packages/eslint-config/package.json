@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/eslint-config",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Eslint rules used @ Sigfox",
   "main": "index.js",
   "scripts": {
