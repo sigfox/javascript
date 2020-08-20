@@ -22,10 +22,6 @@ const app = new Koa()
   .use(boomRouter.routes())
   .callback();
 
-// boomMethod: the method of Boom that is passed to ctx.boom
-// boomMessage: it is the message given to ctx.boom(boom[method](message))
-// boomData: it is the data given to ctx.boom(boom[method](message, data))
-
 const testRoute = ({
   boomMethod,
   boomMessage,
