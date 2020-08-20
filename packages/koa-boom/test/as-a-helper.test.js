@@ -13,11 +13,7 @@ const isValidationError = ctx => !![400, 422].includes(ctx.status);
 
 const boomRouter = new Router();
 boomRouter.post('/boom/:boomMethod', ctx =>
-  boomHelper(
-    ctx,
-    boom[ctx.params.boomMethod](ctx.params.boomMessage, ctx.request.body),
-    isValidationError
-  )
+  boomHelper(ctx, boom[ctx.params.boomMethod](), isValidationError)
 );
 boomRouter.post('/boom/:boomMethod/:boomMessage', (ctx) => {
   boomHelper(
