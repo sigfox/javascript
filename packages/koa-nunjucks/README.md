@@ -8,8 +8,8 @@ You can use this module if you want your Koa app to render html pages from Nunju
 
 ## Features
 
-Adds the ctx.render method to the Koa context.
-It allows you to repond to the client with html pages.
+Adds the ctx.render, ctx.renderTemplate and ctx.renderString methods to the Koa context.
+It allows you to respond to the client with html pages using Nunjucks.
 
 ## Install
 
@@ -25,11 +25,31 @@ npm install @sigfox/koa-nunjucks
 
 - `globals` (`Object`) (`default: {}`): Global data that will be available to all templates.
 
-**ctx.render(relPath, locals)**
+**ctx.render(relPath, locals)** - render the given template and set it into ctx.body of Koa app.
 
 - `relPath` (`String`) (`mandatory`): Relative path (from global path) to the nunjucks template that you want to render. (ex: "pages/home" will render "global/path/to/your/templates/pages/home.njk")
 
 - `locals` (`Object`) (`default: {}`): Local data that will be available in this template only.
+
+**ctx.renderTemplate(relPath, locals)** - render the given template
+
+- `relPath` (`String`) (`mandatory`): Relative path (from global path) to the nunjucks template that you want to render. (ex: "pages/home" will render "global/path/to/your/templates/pages/home.njk")
+
+- `locals` (`Object`) (`default: {}`): Local data that will be available in this template only.
+
+**returns:**
+
+- `html` (`Promise`): Resulting html generated after running the template
+
+**ctx.renderString(str, locals)** - render the given raw string
+
+- `str` (`String`) (`mandatory`): Raw string to render
+
+- `locals` (`Object`) (`default: {}`): Local data that will be available in the raw string only.
+
+**returns:**
+
+- `html` (`Promise`): Resulting html generated after rendering the raw string
 
 ```javascript
 const Koa = require('koa');
@@ -46,6 +66,23 @@ const getRoutes = () => {
       // Second parameter is a local value that will be available to this template.
       { specificData: 'toto' }
     )
+  });
+
+  // This will return the html page generated from the Nunjucks template provided to ctx.renderTemplate
+  router.get('/page/template', async (ctx) => {
+    const html = await ctx.renderTemplate(
+      'templateName'
+    );
+    ctx.body = html;
+  });
+
+  // This will return the html page generated from the Nunjucks template provided to ctx.renderString
+  router.get('/page/string', async (ctx) => {
+    const html = await ctx.renderString(
+      'Hello {{ username }}',
+      { username: 'Charlie' }
+    );
+    ctx.body = html;
   });
 
   return router.routes();
