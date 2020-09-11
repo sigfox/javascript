@@ -1,6 +1,6 @@
 {
   "name": "@sigfox/koa-nunjucks",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": false,
   "description": "Koa middleware adding ctx.render method allowing you to respond with html pages using Nunjucks.",
   "keywords": [
