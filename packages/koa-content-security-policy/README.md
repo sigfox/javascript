@@ -10,7 +10,7 @@ You can use this module if you want to define the front security rules.
 
 Adds the `ctx.setContentSecurityPolicy` and `ctx.templateSecurityMethods` to the Koa context.
 
-- `ctx.templateSecurityMethods` contains the methods to adapt the template to the constraints of the security policy.
+- `ctx.templateSecurityMethods` contains the methods to adapt the html template to the constraints of the security policy.
 - `ctx.setContentSecurityPolicy` is used to apply the security policy defined in the application.
 
 ## Install
