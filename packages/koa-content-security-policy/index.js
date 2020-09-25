@@ -4,13 +4,10 @@ const configProperties = ['styleSrc', 'frameAncestors', 'fontSrc', 'scriptSrc'];
 const mergeAndSanitizeConfigs = (...args) =>
   args.reduce(
     (prevConfig, config) =>
-      configProperties.reduce(
-        (resultConfig, property) => ({
-          ...resultConfig,
-          [property]: [...(prevConfig[property] || []), ...(config[property] || [])]
-        }),
-        {}
-      ),
+      configProperties.reduce((resultConfig, property) => {
+        resultConfig[property] = [...(prevConfig[property] || []), ...(config[property] || [])];
+        return resultConfig;
+      }, {}),
     {}
   );
 
