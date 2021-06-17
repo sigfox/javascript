@@ -86,10 +86,11 @@ const routerTransitionsMiddleware = ({ getState, dispatch }) => next => (action)
         Promise.all(promises).then(resolve, resolve);
       };
 
-      Promise.all(getDataDependencies(components, getState, dispatch, location, params, false)).then(
-        doTransition,
-        doTransition
-      );
+      Promise.all(getDataDependencies(components, getState, dispatch, location, params, false))
+        .then(
+          doTransition,
+          doTransition
+        );
     });
 
     // eslint-disable-next-line no-undef

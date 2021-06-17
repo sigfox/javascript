@@ -4,6 +4,7 @@ import React from 'react';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import createHistory from 'history/lib/createMemoryHistory';
 
+// eslint-disable-next-line no-unused-vars
 import { Route } from '@sigfox/react-router';
 import { reduxReactRouter, routerStateReducer, push } from '@sigfox/redux-router';
 
