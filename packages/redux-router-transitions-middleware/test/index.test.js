@@ -32,11 +32,46 @@ class SecondComponent extends React.Component {
 
   render = () => <div>Second component</div>;
 }
+class FetchDataDeferredComponent extends React.Component {
+  static fetchDataDeferred = ({ dispatch }) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        dispatch({
+          type: INIT_COMPONENT,
+          data: 3
+        });
+        resolve();
+      }, 1000);
+    });
+  }
+
+
+  render = () => <div>Fetch data deferred component</div>;
+}
+
+class FetchDataComponent extends React.Component {
+  static fetchData = ({ dispatch }) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        dispatch({
+          type: INIT_COMPONENT,
+          data: 4
+        });
+        resolve();
+      }, 1000);
+    });
+  }
+
+
+  render = () => <div>Fetch data component</div>;
+}
 
 const routes = (
   <Route path="/">
     <Route path="first" component={FirstComponent} />
     <Route path="second" component={SecondComponent} />
+    <Route path="deferred" component={FetchDataDeferredComponent} />
+    <Route path="notdeferred" component={FetchDataComponent} />
   </Route>
 );
 
@@ -62,16 +97,47 @@ const store = compose(
   applyMiddleware(transitionsMiddleware)
 )(createStore)(reducer);
 
+const timeout = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), ms);
+  })
+}
+
+const nextTick = () => {
+  return new Promise((resolve) => {
+    process.nextTick(() => resolve());
+  })
+}
+
 describe('transitionsMiddleware', () => {
   it('route to /first', async () => {
-    await store.dispatch(push({ pathname: '/first' }));
+    store.dispatch(push({ pathname: '/first' }));
+    await nextTick();
     chai.expect(store.getState().router.location.pathname).to.equal('/first');
     chai.expect(store.getState().component.data).to.equal(1);
   });
 
   it('route to /second', async () => {
-    await store.dispatch(push({ pathname: '/second' }));
+    store.dispatch(push({ pathname: '/second' }))
+    await nextTick();
     chai.expect(store.getState().router.location.pathname).to.equal('/second');
     chai.expect(store.getState().component.data).to.equal(2);
+  });
+
+  it('route to /deferred (fetchDataDeferred)', async () => {
+    await store.dispatch(push({ pathname: '/deferred' }));
+    await nextTick();
+    chai.expect(store.getState().router.location.pathname).to.equal('/deferred');
+    await timeout(1100);
+    chai.expect(store.getState().component.data).to.equal(3);
+  });
+
+  it('route to /notdeferred  (fetchData)', async () => {
+    await store.dispatch(push({ pathname: '/notdeferred' }));
+    await nextTick();
+    chai.expect(store.getState().router.location.pathname).to.not.equal('/notdeferred');
+    await timeout(1100);
+    chai.expect(store.getState().router.location.pathname).to.equal('/notdeferred');
+    chai.expect(store.getState().component.data).to.equal(4);
   });
 });
