@@ -3,6 +3,9 @@ import { ROUTER_DID_CHANGE } from '@sigfox/redux-router/lib/constants';
 const locationsAreEqual = (locA, locB) =>
   locA.pathname === locB.pathname && locA.search === locB.search;
 
+const FETCH_DATA_METHOD = 'fetchData';
+const FETCH_DATA_DEFERRED_METHOD = 'fetchDataDeferred';
+
 // Utility to extract the wrapped component and its fetchData/fetchDataDeferred methods
 // when imported with @loadable/component
 // such as:
@@ -18,15 +21,32 @@ const locationsAreEqual = (locA, locB) =>
 // This method is triggered only during Client Side Rendering not on
 // Server Side Rendering, no changes is required here to support @loadable during SSR.
 // To setup SSR with @loadable see https://loadable-components.com/docs/server-side-rendering/
-const getLoadableDataDependency = (
-  LoadableComponent,
-  methodName
-) => fetchDataOptions =>
-  LoadableComponent.load().then((Component) => {
-    // eslint-disable-next-line no-use-before-define
-    const fetchData = getDataDependency(Component.default, methodName);
-    if (fetchData) return fetchData(fetchDataOptions);
-  });
+const getLoadableDataDependency = (LoadableComponent, methodName) => (fetchDataOptions) => {
+  if (methodName === FETCH_DATA_DEFERRED_METHOD) {
+    return LoadableComponent.load().then((Component) => {
+      // eslint-disable-next-line no-use-before-define
+      const fetchData = getDataDependency(Component.default, FETCH_DATA_METHOD);
+      if (fetchData && !LoadableComponent.enableFetchData) {
+        console.warn(`Warning: Component "${Component.default.displayName}" is wrapped by @loadable/component and has a ${FETCH_DATA_METHOD} method,
+  ${FETCH_DATA_METHOD} method is NOT called by @sigfox/redux-router-transitions-middleware on a Loadable component
+  if the Loadable component has no property "enableFetchData" set to true.`);
+      }
+      // eslint-disable-next-line no-use-before-define
+      const fetchDataDeferred = getDataDependency(
+        Component.default,
+        FETCH_DATA_DEFERRED_METHOD
+      );
+      if (fetchDataDeferred) return fetchDataDeferred(fetchDataOptions);
+    });
+  }
+  if (methodName === FETCH_DATA_METHOD && LoadableComponent.enableFetchData) {
+    return LoadableComponent.load().then((Component) => {
+      // eslint-disable-next-line no-use-before-define
+      const fetchData = getDataDependency(Component.default, FETCH_DATA_METHOD);
+      if (fetchData) return fetchData(fetchDataOptions);
+    });
+  }
+}
 
 const getDataDependency = function getDataDependency(component = {}, methodName) {
   if (component[methodName]) return component[methodName];
@@ -34,12 +54,14 @@ const getDataDependency = function getDataDependency(component = {}, methodName)
     return getDataDependency(component.WrappedComponent, methodName);
   }
   // Look for the `load` method available on @loadable/component during Client Side Rendering
-  if (component.load) return getLoadableDataDependency(component, methodName);
+  if (component.load) {
+    return getLoadableDataDependency(component, methodName);
+  }
   return undefined;
 };
 
 const getDataDependencies = (components, getState, dispatch, location, params, deferred) => {
-  const methodName = deferred ? 'fetchDataDeferred' : 'fetchData';
+  const methodName = deferred ? FETCH_DATA_DEFERRED_METHOD : FETCH_DATA_METHOD;
 
   let previousPromise = Promise.resolve();
   return (
