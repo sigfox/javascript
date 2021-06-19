@@ -1,0 +1,61 @@
+{
+  "name": "koa-content-security-policy",
+  "version": "1.0.0",
+  "description": "Koa middleware adds `ctx.templateSecurityMethods` methods to adapt security settings at rendering time, which can be applied with the `ctx.setContentSecurityPolicy` method.",
+  "keywords": [
+    "koa",
+    "content",
+    "security",
+    "policy",
+    "nonce"
+  ],
+  "author": "Sigfox developers",
+  "homepage": "https://github.com/sigfox/javascript/tree/master/packages/koa-content-security-policy",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigfox/javascript.git"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .js",
+    "lint:report": "npm run lint -- --format json --output-file eslint-report.json",
+    "test": "NODE_ENV=test nyc mocha --check-leaks --reporter spec **/*.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/sigfox/javascript/issues"
+  },
+  "dependencies": {
+    "lodash.merge": "^4.6.2",
+    "uniqid": "^5.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.9.0",
+    "koa": "^2.13.0",
+    "koa-router": "^9.4.0",
+    "mocha": "^8.1.3",
+    "nyc": "^15.1.0",
+    "util.promisify": "^1.0.1"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "include": [
+      "**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "html",
+      "text-summary"
+    ]
+  }
+}

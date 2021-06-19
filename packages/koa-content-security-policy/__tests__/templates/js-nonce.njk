@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <div>
+      <p>my page</p>
+    </div>
+    <script nonce="{{computeJsNonce()}}">
+      alert('I am an alert box');
+    </script>
+    <script nonce="{{computeJsNonce()}}">
+      alert('I am a second alert box');
+    </script>
+  </body>
+</html>
