@@ -37,6 +37,7 @@
     "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.0",
+    "@babel/runtime": "^7.4.3",
     "@sigfox/react-router": "^2.8.6",
     "axios": "^0.18.0",
     "chai": "^4.2.0",
@@ -54,8 +55,8 @@
   },
   "nyc": {
     "check-coverage": true,
-    "lines": 75,
-    "statements": 75,
+    "lines": 69,
+    "statements": 71,
     "include": [
       "**/*.js"
     ],
