@@ -83,6 +83,96 @@ describe('koa-prometheus-http-metrics', () => {
     });
   });
 
+  describe('when "traceClient" options is provided', () => {
+    before(() => {
+      const register = new Prometheus.Registry();
+      app = new Koa()
+        .use(
+          promHttpMetrics({
+            register,
+            traceClient: {
+              enabled: true,
+              serverVersion: '1.0.2',
+              headerName: 'X-Component'
+            }
+          })
+        )
+        .use(bodyParser())
+        .use(prometheus({ register }))
+        .use((ctx) => {
+          ctx.status = 200;
+        });
+      server = app.listen();
+    });
+
+    after(() => {
+      server.close();
+    });
+
+    it('should trace client using X-Component header and pass server version in version label', async () => {
+      await chai.request(server).get('/api/bar').set('X-Component', 'github@2.3.4');
+      await chai.request(server).get('/api/bar').set('X-Component', 'github@2.3.4');
+      await chai.request(server).get('/api/foo').set('X-Component', 'github@2.3.4');
+      const metrics = (await chai.request(server).get('/metrics')).text;
+      metrics.should.match(
+        /http_request_duration_ms_bucket{le="50",method="GET",route="\/api\/foo"}/gm
+      );
+      metrics.should.match(
+        /http_requests_total{method="GET",handler="\/api\/foo",statuscode="200",client="github",clientversion="2.3.4",version="1.0.2"} 1/gm
+      );
+      metrics.should.match(
+        /http_request_duration_ms_bucket{le="50",method="GET",route="\/api\/bar"}/gm
+      );
+      metrics.should.match(
+        /http_requests_total{method="GET",handler="\/api\/bar",statuscode="200",client="github",clientversion="2.3.4",version="1.0.2"} 2/gm
+      );
+    });
+  });
+
+  describe('when "traceClient" options is provided without "traceClient.serverVersion"', () => {
+    it('should throw an error', async () => {
+      const mountMiddleware = () => {
+        const register = new Prometheus.Registry();
+        new Koa()
+        .use(
+          promHttpMetrics({
+            register,
+            traceClient: {
+              enabled: true,
+              serverVersion: null, // BAD
+              headerName: 'X-Component'
+            }
+          })
+        )
+        };
+        chai
+          .expect(mountMiddleware)
+          .to.throw(Error, 'traceClient is enabled but traceClient.serverVersion is not set!');
+    });
+  });
+
+  describe('when "traceClient" options is provided without "traceClient.headerName"', () => {
+    it('should throw an error', async () => {
+      const mountMiddleware = () => {
+        const register = new Prometheus.Registry();
+        new Koa()
+        .use(
+          promHttpMetrics({
+            register,
+            traceClient: {
+              enabled: true,
+              serverVersion: '1.22.3',
+              headerName: null // BAD
+            }
+          })
+        )
+        };
+        chai
+          .expect(mountMiddleware)
+          .to.throw(Error, 'traceClient is enabled but traceClient.headerName is not set!');
+    });
+  });
+
   describe('when using "koa-router" as router', () => {
     before(() => {
       const register = new Prometheus.Registry();
