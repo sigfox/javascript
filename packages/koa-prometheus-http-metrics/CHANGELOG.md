@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/sigfox/javascript/compare/@sigfox/koa-prometheus-http-metrics@2.0.0...@sigfox/koa-prometheus-http-metrics@2.1.0) (2021-09-28)
+
+
+### Features
+
+* **koa-prometheus-http-metrics:** add options traceClient ([8264a1b](https://github.com/sigfox/javascript/commit/8264a1b))
+
+
+
+
+
 # [2.0.0](https://github.com/sigfox/javascript/compare/@sigfox/koa-prometheus-http-metrics@1.2.0...@sigfox/koa-prometheus-http-metrics@2.0.0) (2020-08-21)
 
 
